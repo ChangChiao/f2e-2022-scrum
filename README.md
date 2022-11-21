@@ -1,29 +1,30 @@
-# f2e-2022-scrum
+# ☀ F2E 2022 week3 - Scrum 新手村
 
-- **template of:** vite + react + typescript
-- **tailwindcss:** v3.x
+## Demo
 
-## Started
-```bash
-yarn
-# or `npm install`
-```
+👉 [作品連結](https://f2e-2022-scrum.vercel.app/)
 
----
-## Develop
-```bash
-yarn dev
-# or `npm run dev`
-```
+## 作品說明
 
----
-## Build
-```bash
-yarn build
-# or `npm run build`
-```
+Scrum 新手喵喵村來了!
 
----
-<p align="center">
-<img src="./powered-by-vitawind-bright.png">
-</p>
+![image](./public/catCover.PNG)
+
+## Designer
+
+👏 [葦葦](https://2022.thef2e.com/users/12061549261446707204)
+
+## 系統說明
+
+`Node版本: v14.18.1`
+
+- 安裝： `yarn`
+- 執行： `yarn dev`
+
+## 使用技術
+
+- 框架：react
+
+- 樣式：tailwind
+
+- 拖曳：react-beautiful-dnd
