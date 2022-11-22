@@ -1,21 +1,22 @@
 import React from "react";
 import clsx from "clsx";
-type POtype = {
+type POprops = {
   subStep: number;
   nextSubStep: () => void;
 };
-function PO({ subStep, nextSubStep }: POtype) {
+function PO({ subStep, nextSubStep }: POprops) {
   return (
     <div
       className={clsx(
-        "flex flex-col items-center pl-10 opacity-0",
-        "animate__animated animate__fadeInDown animate__delay-4s",
-        subStep === 1 && "animate__fadeOut"
+        "flex flex-col items-center opacity-0",
+        subStep === 0 &&
+          "animate__animated animate__fadeInDown animate__delay-2s",
+        subStep === 1 && "animate__fadeOut absolute"
       )}
     >
       <div className="mb-10 dialog">
         <h2 className="title">我是喵喵村的 PO。</h2>
-        <p className="content">
+        <p>
           PO 也就是產品負責人（Product
           Owner），產品負責人會負責評估產品待辦清單的價值與重要性，依序排列要執行的優先順序，對齊產品目標。最後排出
           <span className=" text-green-light">

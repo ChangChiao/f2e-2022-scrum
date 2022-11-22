@@ -3,7 +3,7 @@ import { useStep } from "@/components/provider/StepProvider";
 function Cover() {
   const { nextStep } = useStep();
   return (
-    <div className="relative flex flex-col items-center wrapper">
+    <div className="relative flex flex-col items-center cover wrapper">
       <div className="absolute top-[20%] z-0 flex w-full items-center justify-between px-10">
         <img src="/src/assets/plant-1.png" alt="" />
         <img src="/src/assets/plant-2.png" alt="" />

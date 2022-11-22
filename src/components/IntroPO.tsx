@@ -2,12 +2,13 @@ import clsx from "clsx";
 import { useState } from "react";
 import { useStep } from "@/components/provider/StepProvider";
 import PO from "./PO";
+import TodoList from "./TodoList";
 function IntroPO() {
   const step = 2;
   const { nextStep, activeStep } = useStep();
   const [subStep, setSubStep] = useState(0);
   const nextSubStep = () => {
-    setSubStep((prev) => prev++);
+    setSubStep((prev) => (prev += 1));
   };
 
   return (
@@ -22,7 +23,10 @@ function IntroPO() {
         >
           <img src="/src/assets/cat-po.png" alt="" />
         </div>
-        {subStep === 0 && <PO subStep={subStep} nextSubStep={nextSubStep} />}
+        <div className="relative pl-10">
+          <PO subStep={subStep} nextSubStep={nextSubStep} />
+          <TodoList subStep={subStep} nextSubStep={nextSubStep} />
+        </div>
       </div>
       <div className="absolute right-0 flex flex-col items-end w-1/2 pb-2 pointer-events-none bottom-10 xl:bottom-0">
         <img
@@ -30,7 +34,14 @@ function IntroPO() {
           src="/src/assets/plant-2.png"
           alt=""
         />
-        <img className="w-3/4 mr-40" src="/src/assets/cat-box.png" alt="" />
+        <img
+          className={clsx(
+            "mr-40 w-3/4",
+            subStep === 1 && "animate__animated animate__bounceOutRight"
+          )}
+          src="/src/assets/cat-box.png"
+          alt=""
+        />
       </div>
     </div>
   );

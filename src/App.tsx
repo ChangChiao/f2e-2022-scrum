@@ -19,7 +19,6 @@ function App() {
         <Cover />
         <Intro />
         <IntroPO />
-        <TodoList />
         <Sprint />
         <SprintDate />
       </div>
