@@ -4,13 +4,18 @@
 
 @layer base {
   body {
-    @apply h-screen overflow-hidden bg-[url('/src/assets/bg.jpg')] bg-cover bg-no-repeat;
+    @apply h-screen
+    overflow-hidden 
+    bg-[url('/src/assets/bg.jpg')] 
+    bg-cover 
+    bg-no-repeat 
+    font-sans;
   }
 }
 
 @layer components {
   .btn {
-    @apply h-5 w-20 rounded-lg bg-green-light text-center text-blue-dark hover:bg-orange-dark;
+    @apply h-10 w-56 rounded-3xl bg-green-light text-center text-blue-dark hover:bg-orange-dark;
   }
   .dialog {
     @apply rounded-lg bg-white;
