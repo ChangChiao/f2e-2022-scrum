@@ -10,7 +10,7 @@ function Cover() {
   const { nextStep } = useStep();
   return (
     <div className="relative flex flex-col items-center cover wrapper">
-      <div className="absolute top-[30%] z-0 flex w-full items-center justify-between px-10">
+      <div className="absolute top-0 bottom-0 z-0 flex items-center justify-between w-full px-10">
         <img className="max-w-[200px]" src={plant_1} alt="" />
         <img className="ml-4 max-w-[300px]" src={cat_springboard} alt="" />
         <div className="flex-1"></div>

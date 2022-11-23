@@ -4,10 +4,14 @@
 
 @layer base {
   body {
-    @apply h-screen
+    overflow-anchor: none !important;
+    @apply fixed
+    top-0
+    left-0
+    h-screen
     w-screen
     cursor-[url(/src/assets/paw.svg),auto]
-    overflow-hidden
+    overflow-x-hidden
     bg-[url('/src/assets/bg.jpg')] 
     bg-cover 
     bg-no-repeat 
