@@ -8,13 +8,13 @@ function PO({ subStep, nextSubStep }: POprops) {
   return (
     <div
       className={clsx(
-        "flex flex-col items-center opacity-0",
+        "PO flex  flex-col items-center opacity-0",
         subStep === 0 &&
           "animate__animated animate__fadeInDown animate__delay-2s",
         subStep === 1 && "animate__fadeOut absolute"
       )}
     >
-      <div className="dialog mb-10">
+      <div className="mb-10 dialog">
         <h2 className="title">我是喵喵村的 PO。</h2>
         <p>
           PO 也就是產品負責人（Product
@@ -32,7 +32,7 @@ function PO({ subStep, nextSubStep }: POprops) {
           既然你都來了，來試試看調整產品優先度，排出產品待辦清單吧！
         </p>
       </div>
-      <button className="btn mt-6" onClick={nextSubStep}>
+      <button className="mt-6 btn" onClick={nextSubStep}>
         準備好了!
       </button>
     </div>

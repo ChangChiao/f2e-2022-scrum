@@ -5,16 +5,16 @@ import { ReactComponent as Point } from "@/assets/point20.svg";
 import week from "@/assets/week.png";
 type SprintDateProps = {
   subStep: number;
+  activeStep: number;
   nextStep: () => void;
 };
 
-function SprintDate({ subStep, nextStep }: SprintDateProps) {
+function SprintDate({ subStep, activeStep, nextStep }: SprintDateProps) {
   return (
     <div
       className={clsx(
-        "date",
-        `a_${subStep}`,
-        subStep === 0 && "absolute opacity-0",
+        "flex flex-col items-center",
+        activeStep === 3 && "absolute opacity-0",
         subStep === 1 &&
           "animate__animated animate__fadeInDown animate__delay-1s relative opacity-100"
       )}
@@ -30,14 +30,14 @@ function SprintDate({ subStep, nextStep }: SprintDateProps) {
         <div className="brand bg-orange-light">小花:</div>
       </div>
       <div className="flex items-center justify-between w-full p-12 mt-6 dialog">
-        <div className="text-center">
+        <div className="text-center w-36">
           <img src={week} alt="" />
           <p className="pt-4">兩週的時間</p>
         </div>
-        <div className="relative w-full h-1 bg-blue-dark">
+        <div className="relative w-1/2 h-1 bg-blue-dark">
           <Polygon className="absolute -right-2 -top-[5px] rotate-90" />
         </div>
-        <div className="text-center">
+        <div className="text-center w-36">
           <Point />
           <p className="pt-4">負擔點數 20 點</p>
         </div>

@@ -49,10 +49,10 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         </p>
         <div className="brand bg-orange-dark">PO:</div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-20">
         <div
           className={clsx([
-            "relative w-1/2 rounded-3xl border-[20px] border-blue-light bg-white p-4",
+            "relative h-[550px] w-[400px] rounded-3xl border-[20px] border-blue-light bg-white p-4",
             "after:absolute after:-top-16 after:left-0 after:right-0 after:mx-auto after:h-[80px] after:w-[140px] after:bg-[url('/src/assets/list_clip.png')] after:bg-contain after:bg-no-repeat after:content-['']",
             subStep === 1 &&
               "animate__animated animate__fadeInLeft animate__delay-1s",
@@ -84,15 +84,17 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
           <div className="flex flex-col items-center">
             <img
               src={can}
-              className="animate__animated animate__flipInY animate__delay-1s mb-2 min-h-[180px] w-3/4"
+              className="animate__animated animate__flipInY mb-2 min-h-[180px] w-3/4"
               alt=""
             />
-            <div className="w-full p-4 text-center bg-white rounded-3xl">
-              恭喜你完成了! 獲得罐罐一枚!
+            <div className="animate__animated animate__fadeIn">
+              <div className="w-full p-4 text-center bg-white rounded-3xl">
+                恭喜你完成了! 獲得罐罐一枚!
+              </div>
+              <button className="mt-16 btn" onClick={nextStep}>
+                參加貓貓聚會
+              </button>
             </div>
-            <button className="mt-16 btn" onClick={nextStep}>
-              參加貓貓聚會
-            </button>
           </div>
         ) : (
           <div

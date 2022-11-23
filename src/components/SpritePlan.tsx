@@ -14,6 +14,7 @@ function SpritePlan({ subStep, activeStep, setSubStep }: SpritePlanProps) {
   return (
     <div
       className={clsx(
+        "flex flex-col items-center",
         activeStep === 3 &&
           "animate__animated animate__fadeInDown animate__delay-1s",
         subStep === 1 && "animate__fadeOutDown absolute opacity-0"
@@ -35,8 +36,14 @@ function SpritePlan({ subStep, activeStep, setSubStep }: SpritePlanProps) {
       </div>
       <div className="flex items-center justify-between w-full mt-6 dialog">
         <img src={team} alt="" />
-        <div className="flex flex-col items-center justify-center">
-          <img src={sprint_planning} alt="" />
+        <div
+          className={clsx(
+            "flex flex-col items-center justify-center",
+            activeStep === 3 &&
+              "animate__backInUp animate__animated animate__delay-1s"
+          )}
+        >
+          <img src={sprint_planning} className="mb-4" alt="" />
           <div className="relative w-full h-1 bg-blue-dark">
             <Polygon className="absolute -right-2 -top-[5px] rotate-90" />
           </div>

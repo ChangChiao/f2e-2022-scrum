@@ -16,7 +16,7 @@ function IntroPO() {
 
   return (
     <div className="relative flex items-center justify-center wrapper">
-      <div className="flex w-3/4 -translate-y-[80px] items-end  justify-center">
+      <div className="flex items-center justify-center w-3/4">
         <div
           className={clsx(
             "w-1/4 min-w-[200px]",
