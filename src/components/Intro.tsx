@@ -1,11 +1,13 @@
 import React from "react";
 import { useStep } from "@/components/provider/StepProvider";
 import clsx from "clsx";
+import plant_1 from "@/assets/plant-1.png";
+import plant_2 from "@/assets/plant-2.png";
 function Intro() {
   const step = 1;
   const { nextStep, activeStep } = useStep();
   return (
-    <div className="wrapper relative flex flex-col items-center justify-center">
+    <div className="relative flex flex-col items-center justify-center wrapper">
       <div
         className={clsx(
           "dialog range -mt-[300px]",
@@ -18,7 +20,7 @@ function Intro() {
           在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神！
           請接受挑戰任務，成功通過 Scrum 新手村的挑戰任務吧～～
         </p>
-        <button className="btn absolute -bottom-4 right-4" onClick={nextStep}>
+        <button className="absolute btn -bottom-4 right-4" onClick={nextStep}>
           接受挑戰
         </button>
       </div>
@@ -28,7 +30,7 @@ function Intro() {
           activeStep === step &&
             "animate__animated animate__fadeInLeft animate_delay-500"
         )}
-        src="/src/assets/plant-1.png"
+        src={plant_1}
         alt=""
       />
       <img
@@ -37,7 +39,7 @@ function Intro() {
           activeStep === step &&
             "animate__animated animate__fadeInRight animate_delay-500"
         )}
-        src="/src/assets/plant-2.png"
+        src={plant_2}
         alt=""
       />
     </div>

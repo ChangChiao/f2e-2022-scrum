@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useStep } from "@/components/provider/StepProvider";
+import { ReactComponent as Logo } from "@/assets/logo.svg";
+import catAll from "@/assets/cat-all.png";
 import Cover from "./components/Cover";
 import Intro from "./components/Intro";
 import IntroPO from "./components/IntroPO";
 import Sprint from "./components/Sprint";
-import TodoList from "./components/TodoList";
 import clsx from "clsx";
 function App() {
   const { activeStep } = useStep();
@@ -25,14 +26,10 @@ function App() {
           "animate__animated animate__fadeInUp pointer-events-none fixed left-0 right-0 bottom-12 z-10 mx-auto w-2/3 max-w-[1000px]",
           activeStep >= 2 && "animate__fadeOutDown"
         )}
-        src="/src/assets/cat-all.png"
+        src={catAll}
         alt=""
       />
-      <img
-        className="fixed top-5 left-5 w-[200px]"
-        src="/src/assets/logo.svg"
-        alt=""
-      />
+      <Logo className="fixed top-5 left-5 w-[200px]" />
     </>
   );
 }

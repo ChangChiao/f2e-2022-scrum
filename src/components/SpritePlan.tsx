@@ -1,5 +1,9 @@
 import clsx from "clsx";
+import team from "@/assets/team.png";
+import sprint_planning from "@/assets/sprint_planning.png";
+import sprint_backlog from "@/assets/sprint_backlog.png";
 import { useStep } from "@/components/provider/StepProvider";
+import { ReactComponent as Polygon } from "@/assets/Polygon 1.svg";
 type SpritePlanProps = {
   subStep: number;
   activeStep: number;
@@ -30,22 +34,18 @@ function SpritePlan({ subStep, activeStep, setSubStep }: SpritePlanProps) {
         <div className="brand bg-orange-dark">PO:</div>
       </div>
       <div className="flex items-center justify-between w-full mt-6 dialog">
-        <img src="/src/assets/team.png" alt="" />
+        <img src={team} alt="" />
         <div className="flex flex-col items-center justify-center">
-          <img src="/src/assets/sprint_planning" alt="" />
+          <img src={sprint_planning} alt="" />
           <div className="relative w-full h-1 bg-blue-dark">
-            <img
-              className="absolute -right-2 -top-[5px] rotate-90"
-              src="/src/assets/Polygon 1.svg"
-              alt=""
-            />
+            <Polygon className="absolute -right-2 -top-[5px] rotate-90" />
           </div>
           <p className="pt-4 text-center">
             短衝規劃會議 <br /> （Sprint Planning）
           </p>
         </div>
         <div className="text-center">
-          <img src="/src/assets/sprint_backlog.png" alt="" />
+          <img src={sprint_backlog} alt="" />
           <p className="pt-4">
             短衝待辦清單 <br /> （Sprint Backlog）
           </p>

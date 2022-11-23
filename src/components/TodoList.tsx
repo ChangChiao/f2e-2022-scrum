@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useStep } from "@/components/provider/StepProvider";
+import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
+import { ReactComponent as Polygon_1 } from "@/assets/Polygon 1.svg";
+import { ReactComponent as Polygon_2 } from "@/assets/Polygon 2.svg";
+import can from "@/assets/can.png";
+import jira from "@/assets/jira.jpg";
 const contentList = [
   "後台職缺管理功能（資訊上架、下架、顯示應徵者資料）",
   "前台職缺列表、應徵",
@@ -39,7 +44,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         <h2 className="title">換你試看看吧!</h2>
         <p>
           請把需求放到產品待辦清單，並調整待辦的優先度順序。 我們喵喵也推薦使用
-          <img className="inline-block w-16 mx-2" src="/src/assets/jira.jpg" />
+          <img className="inline-block w-16 mx-2" src={jira} />
           來做任務的管理呢！
         </p>
         <div className="brand bg-orange-dark">PO:</div>
@@ -55,17 +60,14 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         >
           <div className="pt-8 pb-4 text-center title">
             產品待辦清單
-            <img
-              className="inline-block mx-1"
-              src="/src/assets/paw_print.svg"
-            />
+            <PawPrint className="inline-block mx-1" />
           </div>
           <div className="flex items-center justify-center">
             <div className="flex flex-col items-center w-12 h-full">
               <span className="title">高</span>
-              <img src="/src/assets/Polygon 1.svg" alt="" />
+              <Polygon_1 />
               <span className={clsx(["block h-72 w-1 bg-blue-dark"])}></span>
-              <img src="/src/assets/Polygon 2.svg" alt="" />
+              <Polygon_2 />
               <span className="title">低</span>
             </div>
             <div className="w-5/6">
@@ -81,8 +83,8 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         {isDone ? (
           <div className="flex flex-col items-center">
             <img
-              src="/src/assets/can.png"
-              className="w-3/4 mb-2 animate__animated animate__flipInY animate__delay-1s"
+              src={can}
+              className="animate__animated animate__flipInY animate__delay-1s mb-2 min-h-[180px] w-3/4"
               alt=""
             />
             <div className="w-full p-4 text-center bg-white rounded-3xl">

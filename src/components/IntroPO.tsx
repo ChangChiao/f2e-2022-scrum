@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useStep } from "@/components/provider/StepProvider";
 import PO from "./PO";
 import TodoList from "./TodoList";
+import plant_2 from "@/assets/plant-2.png";
+import catBox from "@/assets/cat-box.png";
+import catPo from "@/assets/cat-po.png";
 function IntroPO() {
   const step = 2;
   const { nextStep, activeStep } = useStep();
@@ -21,7 +24,7 @@ function IntroPO() {
               "animate__animated animate__fadeInDownBig animate_delay-500"
           )}
         >
-          <img src="/src/assets/cat-po.png" alt="" />
+          <img src={catPo} alt="" />
         </div>
         <div className="relative pl-10">
           <PO subStep={subStep} nextSubStep={nextSubStep} />
@@ -29,17 +32,13 @@ function IntroPO() {
         </div>
       </div>
       <div className="absolute right-0 flex flex-col items-end w-1/2 pb-2 pointer-events-none bottom-10 xl:bottom-0">
-        <img
-          className="-my-[40px] w-[140px]"
-          src="/src/assets/plant-2.png"
-          alt=""
-        />
+        <img className="-my-[40px] w-[140px]" src={plant_2} alt="" />
         <img
           className={clsx(
             "mr-40 w-3/4",
             subStep === 1 && "animate__animated animate__bounceOutRight"
           )}
-          src="/src/assets/cat-box.png"
+          src={catBox}
           alt=""
         />
       </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import clsx from "clsx";
-
+import { ReactComponent as Polygon } from "@/assets/Polygon 1.svg";
+import { ReactComponent as Point } from "@/assets/point20.svg";
+import week from "@/assets/week.png";
 type SprintDateProps = {
   subStep: number;
   nextStep: () => void;
@@ -27,31 +29,27 @@ function SprintDate({ subStep, nextStep }: SprintDateProps) {
         </p>
         <div className="brand bg-orange-light">小花:</div>
       </div>
-      <div className="dialog mt-6 flex w-full items-center justify-between p-12">
+      <div className="flex items-center justify-between w-full p-12 mt-6 dialog">
         <div className="text-center">
-          <img src="/src/assets/week.png" alt="" />
+          <img src={week} alt="" />
           <p className="pt-4">兩週的時間</p>
         </div>
-        <div className="relative h-1 w-full bg-blue-dark">
-          <img
-            className="absolute -right-2 -top-[5px] rotate-90"
-            src="/src/assets/Polygon 1.svg"
-            alt=""
-          />
+        <div className="relative w-full h-1 bg-blue-dark">
+          <Polygon className="absolute -right-2 -top-[5px] rotate-90" />
         </div>
         <div className="text-center">
-          <img src="/src/assets/point20.svg" alt="" />
+          <Point />
           <p className="pt-4">負擔點數 20 點</p>
         </div>
       </div>
-      <div className="dialog mt-20">
+      <div className="mt-20 dialog">
         <p>
           欸新來的，你應該不知道點數是什麼意思吧 哈哈 我來跟你介紹一下吧～
           Sprint Point 目的是為了衡量速度，是用大概花費的時間預估出的相對點數。
         </p>
-        <div className="brand bg-blue-dark text-white">賓士 :</div>
+        <div className="text-white brand bg-blue-dark">賓士 :</div>
       </div>
-      <button className="btn mt-10" onClick={nextStep}>
+      <button className="mt-10 btn" onClick={nextStep}>
         了解
       </button>
     </div>
