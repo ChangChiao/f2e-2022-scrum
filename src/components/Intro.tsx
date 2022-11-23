@@ -5,7 +5,7 @@ function Intro() {
   const step = 1;
   const { nextStep, activeStep } = useStep();
   return (
-    <div className="relative flex flex-col items-center justify-center wrapper">
+    <div className="wrapper relative flex flex-col items-center justify-center">
       <div
         className={clsx(
           "dialog range -mt-[300px]",
@@ -18,7 +18,7 @@ function Intro() {
           在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神！
           請接受挑戰任務，成功通過 Scrum 新手村的挑戰任務吧～～
         </p>
-        <button className="absolute btn -bottom-4 right-4" onClick={nextStep}>
+        <button className="btn absolute -bottom-4 right-4" onClick={nextStep}>
           接受挑戰
         </button>
       </div>

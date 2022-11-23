@@ -4,7 +4,6 @@ import Cover from "./components/Cover";
 import Intro from "./components/Intro";
 import IntroPO from "./components/IntroPO";
 import Sprint from "./components/Sprint";
-import SprintDate from "./components/SprintDate";
 import TodoList from "./components/TodoList";
 import clsx from "clsx";
 function App() {
@@ -20,12 +19,11 @@ function App() {
         <Intro />
         <IntroPO />
         <Sprint />
-        <SprintDate />
       </div>
       <img
         className={clsx(
           "animate__animated animate__fadeInUp pointer-events-none fixed left-0 right-0 bottom-12 z-10 mx-auto w-2/3 max-w-[1000px]",
-          activeStep === 2 && "animate__fadeOut"
+          activeStep >= 2 && "animate__fadeOutDown"
         )}
         src="/src/assets/cat-all.png"
         alt=""

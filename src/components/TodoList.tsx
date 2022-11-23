@@ -80,7 +80,11 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         </div>
         {isDone ? (
           <div className="flex flex-col items-center">
-            <img src="/src/assets/can.png" className="w-3/4 mb-2" alt="" />
+            <img
+              src="/src/assets/can.png"
+              className="w-3/4 mb-2 animate__animated animate__flipInY animate__delay-1s"
+              alt=""
+            />
             <div className="w-full p-4 text-center bg-white rounded-3xl">
               恭喜你完成了! 獲得罐罐一枚!
             </div>

@@ -14,12 +14,12 @@ function PO({ subStep, nextSubStep }: POprops) {
         subStep === 1 && "animate__fadeOut absolute"
       )}
     >
-      <div className="mb-10 dialog">
+      <div className="dialog mb-10">
         <h2 className="title">我是喵喵村的 PO。</h2>
         <p>
           PO 也就是產品負責人（Product
           Owner），產品負責人會負責評估產品待辦清單的價值與重要性，依序排列要執行的優先順序，對齊產品目標。最後排出
-          <span className=" text-green-light">
+          <span className=" text-green-dark">
             產品待辦清單（Product Backlog）
           </span>
           唷！
@@ -32,7 +32,7 @@ function PO({ subStep, nextSubStep }: POprops) {
           既然你都來了，來試試看調整產品優先度，排出產品待辦清單吧！
         </p>
       </div>
-      <button className="mt-6 btn" onClick={nextSubStep}>
+      <button className="btn mt-6" onClick={nextSubStep}>
         準備好了!
       </button>
     </div>
