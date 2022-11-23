@@ -7,7 +7,7 @@
     @apply h-screen
     w-screen
     cursor-[url(/src/assets/paw.svg),auto]
-    overflow-hidden 
+    overflow-hidden
     bg-[url('/src/assets/bg.jpg')] 
     bg-cover 
     bg-no-repeat 
