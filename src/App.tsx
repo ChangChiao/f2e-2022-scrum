@@ -6,6 +6,7 @@ import Cover from "./components/Cover";
 import Intro from "./components/Intro";
 import IntroPO from "./components/IntroPO";
 import Sprint from "./components/Sprint";
+import Fibonacci from "./components/Fibonacci";
 import clsx from "clsx";
 function App() {
   const { activeStep } = useStep();
@@ -20,6 +21,7 @@ function App() {
         <Intro />
         <IntroPO />
         <Sprint />
+        <Fibonacci />
       </div>
       <img
         className={clsx(
