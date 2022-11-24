@@ -32,7 +32,7 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     point: number;
   };
 
-  const [contentList, setContentList] = useState([
+  const [contentList, setContentList] = useState<Partial<BackLogItem>[]>([
     {
       id: "A1",
       point: 8,
@@ -43,11 +43,25 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     { id: "A4", point: 15, text: "會員系統（登入、註冊、權限管理）" },
   ]);
 
-  const [finishedList, setFinishedList] = useState<BackLogItem[]>([]);
+  const [finishedList, setFinishedList] = useState<Partial<BackLogItem>[]>([
+    {},
+    {},
+    {},
+    {},
+  ]);
 
   const checkPoint = () => {
-    const result = finishedList.reduce((a, b) => a + b.point, 0);
+    const result = finishedList.reduce((a, b) => a + b.point!, 0);
     return result <= 20;
+  };
+
+  const getType = (id: string, key?: string) => {
+    if (key === "type") {
+      return id.split("-")[1];
+    }
+    console.log("xxx", id.split("-")[2]);
+
+    return Number(id.split("-")[2]);
   };
 
   const handleDragEnd = (event: DropResult) => {
@@ -58,33 +72,56 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     if (!destination) {
       return;
     }
+    const isSameZone =
+      getType(destination.droppableId, "type") ===
+      getType(source.droppableId, "type");
+
+    const sourceIndex = getType(source.droppableId) as number;
+    const destinationIndex = getType(destination.droppableId) as number;
+
+    console.log("sourceIndex", sourceIndex);
+    console.log("destinationIndex", destinationIndex);
 
     const sourceItems = [...contentList];
-    const targetItems = [...finishedList];
+    const destinationItems = [...finishedList];
     // 同一區
-    if (destination.droppableId === source.droppableId) {
-      if (destination.droppableId === "drop-source") {
-        const [remove] = sourceItems.splice(source.index, 1);
-        sourceItems.splice(destination.index, 0, remove);
+    if (isSameZone) {
+      if (destination.droppableId.startsWith("drop-source")) {
+        console.log("1111");
+
+        const [remove] = sourceItems.splice(sourceIndex, 1);
+        sourceItems.splice(destinationIndex, 0, remove);
         setContentList(sourceItems);
       } else {
-        const [remove] = targetItems.splice(source.index, 1);
-        targetItems.splice(destination.index, 0, remove);
-        setFinishedList(targetItems);
+        console.log("2222");
+
+        const [remove] = destinationItems.splice(sourceIndex, 1);
+        destinationItems.splice(destinationIndex, 0, remove);
+        setFinishedList(destinationItems);
       }
+
       return;
     }
-    if (destination.droppableId === "drop-source") {
-      const [remove] = targetItems.splice(source.index, 1);
-      sourceItems.splice(destination.index, 0, remove);
+    if (destination.droppableId.startsWith("drop-source")) {
+      const [remove] = destinationItems.splice(sourceIndex, 1, {});
+      sourceItems.splice(destinationIndex, 0, remove as BackLogItem);
       setContentList(sourceItems);
-      setFinishedList(targetItems);
+      setFinishedList(destinationItems);
+      console.log("3333");
     } else {
-      const [remove] = sourceItems.splice(source.index, 1);
-      targetItems.splice(destination.index, 0, remove);
+      const [remove] = sourceItems.splice(sourceIndex, 1, {});
+      console.log("remove", remove);
+
+      destinationItems.splice(destinationIndex, 0, remove);
       setContentList(sourceItems);
-      setFinishedList(targetItems);
+      setFinishedList(destinationItems);
+      console.log("4444");
     }
+
+    // setTimeout(() => {
+    //   console.log("setContentList", contentList);
+    //   console.log("setFinishedList", finishedList);
+    // }, 3000);
   };
   const checkOrder = () => {
     const isPass = checkPoint();
@@ -99,6 +136,10 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     }
     setIsDone(true);
   };
+
+  useEffect(() => {
+    console.log("setFinishedList", finishedList);
+  }, [finishedList]);
 
   useEffect(() => {
     console.log("subStep", subStep);
@@ -124,68 +165,59 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
               <PawPrint className="inline-block mx-1" />
             </div>
             <div className="flex items-center justify-between">
-              <Droppable droppableId="drop-destination">
-                {(provided, snapshot) => (
-                  <div
-                    className="relative h-[400px] w-[300px]"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {/* {provided.placeholder} */}
-                    {Array.from({ length: 4 }).map((item, i) => (
-                      <div
-                        className="absolute -z-10 mb-4 h-20 w-[300px] rounded-xl border-2 border-dashed border-gray-light"
-                        style={{ top: `${i * 96}px` }}
-                        key={`drop-${i}`}
-                      ></div>
-                    ))}
-                    {finishedList.map((item, i) => (
-                      <BackLogItem key={`finish-${i}`} {...item} index={i} />
-                    ))}
-                  </div>
-                )}
-              </Droppable>
+              {/* <Droppable droppableId="drop-destination"> */}
+              {/* {(provided, snapshot) => ( */}
+              <div className="relative h-[400px] w-[300px]">
+                {contentList.map((item, i) => (
+                  <BackLogItem
+                    key={`finish-${i}`}
+                    {...item}
+                    type="source"
+                    index={i}
+                  />
+                ))}
+              </div>
+              {/* )} */}
+              {/* </Droppable> */}
             </div>
           </div>
-          <Droppable droppableId="drop-source">
-            {(provided, snapshot) => {
-              return (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className={clsx(
-                    "h-[400px] w-[300px]",
-                    subStep === 1 &&
-                      "animate__animated animate__fadeInRight animate__delay-1s"
-                  )}
-                >
-                  <div className="pt-8 pb-4 text-center title">
-                    短衝待辦清單 (Product Backlog)
-                    <PawPrint className="inline-block mx-1" />
-                  </div>
-                  <ul className="relative h-[400px]">
-                    {/* {provided.placeholder} */}
-                    {contentList.map((item, i) => (
-                      <BackLogItem key={`undo-${i}`} {...item} index={i} />
-                    ))}
-                  </ul>
-                  <button
-                    className={clsx(
-                      "btn mt-10",
-                      isShowError && "bg-red-600 text-white"
-                    )}
-                    onClick={checkOrder}
-                  >
-                    {isShowError ? (
-                      <span>答錯了!再試試看吧!</span>
-                    ) : (
-                      <span>我完成了！</span>
-                    )}
-                  </button>
-                </div>
-              );
-            }}
-          </Droppable>
+
+          <div
+            className={clsx(
+              "h-[400px] w-[300px]",
+              subStep === 1 &&
+                "animate__animated animate__fadeInRight animate__delay-1s"
+            )}
+          >
+            <div className="pt-8 pb-4 text-center title">
+              短衝待辦清單 (Product Backlog)
+              <PawPrint className="inline-block mx-1" />
+            </div>
+            <ul className="relative h-[400px]">
+              {/* {provided.placeholder} */}
+              {finishedList.map((item, i) => (
+                <BackLogItem
+                  key={`undo-${i}`}
+                  type="destination"
+                  {...item}
+                  index={i}
+                />
+              ))}
+            </ul>
+            <button
+              className={clsx(
+                "btn mt-10",
+                isShowError && "bg-red-600 text-white"
+              )}
+              onClick={checkOrder}
+            >
+              {isShowError ? (
+                <span>答錯了!再試試看吧!</span>
+              ) : (
+                <span>我完成了！</span>
+              )}
+            </button>
+          </div>
         </div>
       </DragDropContext>
     </div>

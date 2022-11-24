@@ -1,12 +1,13 @@
 import React from "react";
 import DraggablePortalHandler from "@/components/DraggablePortalHandler";
-import { Draggable, DraggingStyle } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 type BackLogItem = {
   id: string;
   text: string;
   point: number;
   index: number;
+  type: string;
 };
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
@@ -17,27 +18,49 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
   };
 };
 
-function BackLogItem({ id, text, index, point }: BackLogItem) {
+function BackLogItem({ id, text, index, point, type }: Partial<BackLogItem>) {
   return (
-    <Draggable key={id} draggableId={id} index={index}>
-      {(provided, snapshot) => (
-        <DraggablePortalHandler snapshot={snapshot}>
+    <Droppable droppableId={`drop-${type}-${index}`}>
+      {(provided, snapshot) => {
+        return (
           <li
-            className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
+            {...provided.droppableProps}
+            className="mb-4 h-20 w-[300px] rounded-xl border-2 border-dashed border-gray-light"
             ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={getItemStyle(
-              snapshot.isDragging,
-              provided.draggableProps.style
-            )}
           >
-            {text}
-            <span className="text-white rounded-xl bg-blue-dark">{point}</span>
+            {id ? (
+              <Draggable
+                key={id}
+                draggableId={`drag-${type}-${id}`}
+                index={index as number}
+              >
+                {(provided, snapshot) => (
+                  <DraggablePortalHandler snapshot={snapshot}>
+                    <div
+                      className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
+                      {text}
+                      <span className="text-white rounded-xl bg-blue-dark">
+                        {point}
+                      </span>
+                    </div>
+                  </DraggablePortalHandler>
+                )}
+              </Draggable>
+            ) : (
+              <></>
+            )}
           </li>
-        </DraggablePortalHandler>
-      )}
-    </Draggable>
+        );
+      }}
+    </Droppable>
   );
 }
 
