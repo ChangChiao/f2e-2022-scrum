@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { nanoid } from "nanoid";
-import DraggablePortalHandler from "@/components/DraggablePortalHandler";
+import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
 import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
 import { ReactComponent as Polygon_1 } from "@/assets/Polygon 1.svg";
@@ -70,17 +70,6 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
     setIsDone(true);
   };
 
-  const getPositon = () => {};
-
-  const getItemStyle = (isDragging: boolean, draggableStyle: DraggingStyle) => {
-    return {
-      ...draggableStyle,
-      userSelect: "none",
-      position: isDragging ? "absolute" : "static",
-      background: isDragging ? "#ededed" : "#fff",
-    };
-  };
-
   useEffect(() => {
     console.log("subStep", subStep);
   }, [subStep]);
@@ -109,7 +98,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
 
       {/* <Test /> */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="drop-id">
+        <Droppable droppableId="drop-left">
           {(provided, snapshot) => (
             <div
               className="flex justify-between mt-20 drag"
@@ -149,7 +138,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                   </div>
                 </div>
               </div>
-              {isDone ? (
+              {/* {isDone ? (
                 <div className="flex flex-col items-center">
                   <img
                     src={can}
@@ -175,56 +164,82 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                 >
                   <>
                     <h2 className="pb-10">請拖拉至清單中並調整順序</h2>
-                    <ul className="relative">
+                    <ul className="relative h-[400px]">
                       {contentList.map((item, i) => (
-                        <Draggable
-                          key={item.id}
-                          draggableId={item.id}
-                          index={i}
-                        >
-                          {(provided, snapshot) => (
-                            <DraggablePortalHandler snapshot={snapshot}>
-                              <li
-                                className="flex items-center justify-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                // style={{
-                                //   ...provided.draggableProps.style,
-                                //   position: "static",
-                                //   padding: 0,
-                                // }}
-                                // @ts-ignore
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style as DraggingStyle
-                                )}
-                              >
-                                {item.text}
-                              </li>
-                            </DraggablePortalHandler>
-                          )}
-                        </Draggable>
+                        <TodoListItem {...item} index={i} />
                       ))}
-                      <button
-                        className={clsx(
-                          "btn mt-10",
-                          isShowError && "bg-red-600 text-white"
-                        )}
-                        onClick={checkOrder}
-                      >
-                        {isShowError ? (
-                          <span>答錯了!再試試看吧!</span>
-                        ) : (
-                          <span>我完成了！</span>
-                        )}
-                      </button>
                     </ul>
+                    <button
+                      className={clsx(
+                        "btn mt-10",
+                        isShowError && "bg-red-600 text-white"
+                      )}
+                      onClick={checkOrder}
+                    >
+                      {isShowError ? (
+                        <span>答錯了!再試試看吧!</span>
+                      ) : (
+                        <span>我完成了！</span>
+                      )}
+                    </button>
                   </>
                 </div>
-              )}
+              )} */}
             </div>
           )}
+        </Droppable>
+        <Droppable droppableId="drop-right">
+          {(provided, snapshot) => {
+            return isDone ? (
+              <div className="flex flex-col items-center">
+                <img
+                  src={can}
+                  className="animate__animated animate__flipInY mb-2 min-h-[180px] w-3/4"
+                  alt=""
+                />
+                <div className="animate__animated animate__fadeIn">
+                  <div className="w-full p-4 text-center bg-white rounded-3xl">
+                    恭喜你完成了! 獲得罐罐一枚!
+                  </div>
+                  <button className="mt-16 btn" onClick={nextStep}>
+                    參加貓貓聚會
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={clsx(
+                  "h-[400px] w-[300px]",
+                  subStep === 1 &&
+                    "animate__animated animate__fadeInRight animate__delay-1s"
+                )}
+              >
+                <>
+                  <h2 className="pb-10">請拖拉至清單中並調整順序</h2>
+                  <ul className="relative h-[400px]">
+                    {contentList.map((item, i) => (
+                      <TodoListItem {...item} index={i} />
+                    ))}
+                  </ul>
+                  <button
+                    className={clsx(
+                      "btn mt-10",
+                      isShowError && "bg-red-600 text-white"
+                    )}
+                    onClick={checkOrder}
+                  >
+                    {isShowError ? (
+                      <span>答錯了!再試試看吧!</span>
+                    ) : (
+                      <span>我完成了！</span>
+                    )}
+                  </button>
+                </>
+              </div>
+            );
+          }}
         </Droppable>
       </DragDropContext>
     </div>
