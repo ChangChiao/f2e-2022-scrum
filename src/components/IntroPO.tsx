@@ -6,6 +6,7 @@ import TodoList from "./TodoList";
 import plant_2 from "@/assets/plant-2.png";
 import catBox from "@/assets/cat-box.png";
 import catPo from "@/assets/cat-po.png";
+import BackLog from "./BackLog";
 function IntroPO() {
   const step = 2;
   const { nextStep, activeStep } = useStep();
@@ -28,7 +29,8 @@ function IntroPO() {
         </div>
         <div className="relative pl-10">
           <PO subStep={subStep} nextSubStep={nextSubStep} />
-          <TodoList subStep={subStep} nextSubStep={nextSubStep} />
+          {/* <TodoList subStep={subStep} nextSubStep={nextSubStep} /> */}
+          <BackLog subStep={subStep} nextSubStep={nextSubStep} />
         </div>
       </div>
       <div className="absolute right-0 flex flex-col items-end w-1/2 pb-2 pointer-events-none bottom-10 xl:bottom-0">
