@@ -50,10 +50,6 @@
   -webkit-animation-delay: 0.5s;
 }
 
-* {
-  outline: 1px solid #333;
-}
-
 .draggable {
   top: auto !important;
   left: auto !important;

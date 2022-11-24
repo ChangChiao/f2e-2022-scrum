@@ -8,12 +8,14 @@ import { ReactComponent as Polygon_1 } from "@/assets/Polygon 1.svg";
 import { ReactComponent as Polygon_2 } from "@/assets/Polygon 2.svg";
 import can from "@/assets/can.png";
 import jira from "@/assets/jira.jpg";
-import Test from "@/components/Test";
+
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
+  NotDraggingStyle,
+  DraggingStyle,
 } from "react-beautiful-dnd";
 
 type TodoProps = {
@@ -52,6 +54,18 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
   const checkOrder = () => {
     setIsDone(true);
   };
+
+  const getPositon = () => {};
+
+  const getItemStyle = (isDragging: boolean, draggableStyle: DraggingStyle) => {
+    return {
+      ...draggableStyle,
+      userSelect: "none",
+      position: isDragging ? "absolute" : "static",
+      background: isDragging ? "#ededed" : "#fff",
+    };
+  };
+
   useEffect(() => {
     console.log("subStep", subStep);
   }, [subStep]);
@@ -87,7 +101,6 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {provided.placeholder}
               <div
                 className={clsx([
                   "relative h-[550px] w-[400px] rounded-3xl border-[20px] border-blue-light bg-white p-4",
@@ -111,6 +124,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                     <span className="title">低</span>
                   </div>
                   <div className="w-5/6">
+                    {provided.placeholder}
                     {Array.from({ length: 4 }).map((item, i) => (
                       <div
                         className="h-20 mb-4 border-2 border-dashed rounded-xl border-gray-light"
@@ -160,11 +174,16 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                style={{
-                                  ...provided.draggableProps.style,
-                                  position: "static",
-                                  padding: 0,
-                                }}
+                                // style={{
+                                //   ...provided.draggableProps.style,
+                                //   position: "static",
+                                //   padding: 0,
+                                // }}
+                                // @ts-ignore
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style as DraggingStyle
+                                )}
                               >
                                 {item.text}
                               </li>
