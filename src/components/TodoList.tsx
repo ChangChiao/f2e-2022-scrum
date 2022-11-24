@@ -28,6 +28,12 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
   const [isDone, setIsDone] = useState(false);
   const [isShowError, setError] = useState(false);
   const answer = ["A1", "A4", "A3", "A2"];
+
+  type TodoListItem = {
+    id: string;
+    text: string;
+  };
+
   const [contentList, setContentList] = useState([
     {
       id: "A1",
@@ -38,9 +44,11 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
     { id: "A4", text: "會員系統（登入、註冊、權限管理）" },
   ]);
 
+  const [finishedList, setFinishedList] = useState<TodoListItem[]>([]);
+
   const checkAnswer = () => {
-    const question = contentList.map((item) => item.id).join("");
-    return question === answer.join("");
+    const question = contentList.map((item) => item.id);
+    return question.join("") === answer.join("");
   };
 
   const handleDragEnd = (event: DropResult) => {
@@ -52,11 +60,32 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
       return;
     }
 
-    const newItems = [...contentList];
-    const [remove] = newItems.splice(source.index, 1);
-    newItems.splice(destination.index, 0, remove);
-
-    setContentList(newItems);
+    const sourceItems = [...contentList];
+    const targetItems = [...finishedList];
+    // 同一區
+    if (destination.droppableId === source.droppableId) {
+      if (destination.droppableId === "drop-source") {
+        const [remove] = sourceItems.splice(source.index, 1);
+        sourceItems.splice(destination.index, 0, remove);
+        setContentList(sourceItems);
+      } else {
+        const [remove] = targetItems.splice(source.index, 1);
+        targetItems.splice(destination.index, 0, remove);
+        setFinishedList(targetItems);
+      }
+      return;
+    }
+    if (destination.droppableId === "drop-source") {
+      const [remove] = targetItems.splice(source.index, 1);
+      sourceItems.splice(destination.index, 0, remove);
+      setContentList(sourceItems);
+      setFinishedList(targetItems);
+    } else {
+      const [remove] = sourceItems.splice(source.index, 1);
+      targetItems.splice(destination.index, 0, remove);
+      setContentList(sourceItems);
+      setFinishedList(targetItems);
+    }
   };
   const checkOrder = () => {
     const isPass = checkAnswer();
@@ -98,47 +127,53 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
 
       {/* <Test /> */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="drop-left">
-          {(provided, snapshot) => (
-            <div
-              className="flex justify-between mt-20 drag"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              <div
-                className={clsx([
-                  "relative h-[550px] w-[400px] rounded-3xl border-[20px] border-blue-light bg-white p-4",
-                  "after:absolute after:-top-16 after:left-0 after:right-0 after:mx-auto after:h-[80px] after:w-[140px] after:bg-[url('/src/assets/list_clip.png')] after:bg-contain after:bg-no-repeat after:content-['']",
-                  subStep === 1 &&
-                    "animate__animated animate__fadeInLeft animate__delay-1s",
-                ])}
-              >
-                <div className="pt-8 pb-4 text-center title">
-                  產品待辦清單
-                  <PawPrint className="inline-block mx-1" />
-                </div>
-                <div className="flex items-center justify-center">
-                  <div className="flex flex-col items-center w-12 h-full">
-                    <span className="title">高</span>
-                    <Polygon_1 />
-                    <span
-                      className={clsx(["block h-72 w-1 bg-blue-dark"])}
-                    ></span>
-                    <Polygon_2 />
-                    <span className="title">低</span>
-                  </div>
-                  <div className="w-5/6">
-                    {provided.placeholder}
+        <div className="flex justify-between mt-20 drag">
+          <div
+            className={clsx([
+              "relative h-[550px] w-[420px] rounded-3xl border-[20px] border-blue-light bg-white p-4",
+              "after:absolute after:-top-16 after:left-0 after:right-0 after:mx-auto after:h-[80px] after:w-[140px] after:bg-[url('/src/assets/list_clip.png')] after:bg-contain after:bg-no-repeat after:content-['']",
+              subStep === 1 &&
+                "animate__animated animate__fadeInLeft animate__delay-1s",
+            ])}
+          >
+            <div className="pt-8 pb-4 text-center title">
+              產品待辦清單
+              <PawPrint className="inline-block mx-1" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col items-center w-12 h-full">
+                <span className="title">高</span>
+                <Polygon_1 />
+                <span className={clsx(["block h-72 w-1 bg-blue-dark"])}></span>
+                <Polygon_2 />
+                <span className="title">低</span>
+              </div>
+              <Droppable droppableId="drop-destination">
+                {(provided, snapshot) => (
+                  <div
+                    className="relative h-[400px] w-[300px]"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {/* {provided.placeholder} */}
                     {Array.from({ length: 4 }).map((item, i) => (
                       <div
-                        className="h-20 mb-4 border-2 border-dashed rounded-xl border-gray-light"
+                        className="absolute mb-4 h-20 w-[300px] rounded-xl border-2 border-dashed border-gray-light"
+                        // style={{ top: `${i * 96}px` }}
                         key={`drop-${i}`}
                       ></div>
                     ))}
+                    {finishedList.map((item, i) => (
+                      <TodoListItem key={`finish-${i}`} {...item} index={i} />
+                    ))}
                   </div>
-                </div>
-              </div>
-              {/* {isDone ? (
+                )}
+              </Droppable>
+            </div>
+          </div>
+          <Droppable droppableId="drop-source">
+            {(provided, snapshot) => {
+              return isDone ? (
                 <div className="flex flex-col items-center">
                   <img
                     src={can}
@@ -156,6 +191,8 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                 </div>
               ) : (
                 <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
                   className={clsx(
                     "h-[400px] w-[300px]",
                     subStep === 1 &&
@@ -165,8 +202,9 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                   <>
                     <h2 className="pb-10">請拖拉至清單中並調整順序</h2>
                     <ul className="relative h-[400px]">
+                      {/* {provided.placeholder} */}
                       {contentList.map((item, i) => (
-                        <TodoListItem {...item} index={i} />
+                        <TodoListItem key={`undo-${i}`} {...item} index={i} />
                       ))}
                     </ul>
                     <button
@@ -184,63 +222,10 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                     </button>
                   </>
                 </div>
-              )} */}
-            </div>
-          )}
-        </Droppable>
-        <Droppable droppableId="drop-right">
-          {(provided, snapshot) => {
-            return isDone ? (
-              <div className="flex flex-col items-center">
-                <img
-                  src={can}
-                  className="animate__animated animate__flipInY mb-2 min-h-[180px] w-3/4"
-                  alt=""
-                />
-                <div className="animate__animated animate__fadeIn">
-                  <div className="w-full p-4 text-center bg-white rounded-3xl">
-                    恭喜你完成了! 獲得罐罐一枚!
-                  </div>
-                  <button className="mt-16 btn" onClick={nextStep}>
-                    參加貓貓聚會
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className={clsx(
-                  "h-[400px] w-[300px]",
-                  subStep === 1 &&
-                    "animate__animated animate__fadeInRight animate__delay-1s"
-                )}
-              >
-                <>
-                  <h2 className="pb-10">請拖拉至清單中並調整順序</h2>
-                  <ul className="relative h-[400px]">
-                    {contentList.map((item, i) => (
-                      <TodoListItem {...item} index={i} />
-                    ))}
-                  </ul>
-                  <button
-                    className={clsx(
-                      "btn mt-10",
-                      isShowError && "bg-red-600 text-white"
-                    )}
-                    onClick={checkOrder}
-                  >
-                    {isShowError ? (
-                      <span>答錯了!再試試看吧!</span>
-                    ) : (
-                      <span>我完成了！</span>
-                    )}
-                  </button>
-                </>
-              </div>
-            );
-          }}
-        </Droppable>
+              );
+            }}
+          </Droppable>
+        </div>
       </DragDropContext>
     </div>
   );

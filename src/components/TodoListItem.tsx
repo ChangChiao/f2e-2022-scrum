@@ -13,7 +13,6 @@ const getItemStyle = (isDragging: boolean, draggableStyle: DraggingStyle) => {
     ...draggableStyle,
     userSelect: "none",
     position: isDragging ? "absolute" : "static",
-    background: isDragging ? "#ededed" : "#fff",
   };
 };
 
@@ -23,7 +22,7 @@ function TodoListItem({ id, text, index }: TodoListItem) {
       {(provided, snapshot) => (
         <DraggablePortalHandler snapshot={snapshot}>
           <li
-            className="flex items-center justify-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
+            className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
