@@ -43,7 +43,10 @@ function Test() {
                     {...p.draggableProps}
                     {...p.dragHandleProps}
                     key={t.id}
-                    style={{ willChange: "unset" }}
+                    style={{
+                      ...p.draggableProps.style,
+                      position: "static",
+                    }}
                   >
                     {t.text}
                   </div>
