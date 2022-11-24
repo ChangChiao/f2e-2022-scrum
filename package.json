@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/react-beautiful-dnd": "^13.1.1",
     "animate.css": "^4.1.1",
     "clsx": "^1.2.1",
     "nanoid": "^4.0.0",

@@ -26,15 +26,22 @@ type TodoProps = {
 function TodoList({ subStep, nextSubStep }: TodoProps) {
   const { nextStep } = useStep();
   const [isDone, setIsDone] = useState(false);
+  const [isShowError, setError] = useState(false);
+  const answer = ["A1", "A4", "A3", "A2"];
   const [contentList, setContentList] = useState([
     {
-      id: nanoid(),
+      id: "A1",
       text: "後台職缺管理功能（資訊上架、下架、顯示應徵者資料）",
     },
-    { id: nanoid(), text: "前台職缺列表、應徵" },
-    { id: nanoid(), text: "應徵者的線上履歷編輯器" },
-    { id: nanoid(), text: "會員系統（登入、註冊、權限管理）" },
+    { id: "A2", text: "前台職缺列表、應徵" },
+    { id: "A3", text: "應徵者的線上履歷編輯器" },
+    { id: "A4", text: "會員系統（登入、註冊、權限管理）" },
   ]);
+
+  const checkAnswer = () => {
+    const question = contentList.map((item) => item.id).join("");
+    return question === answer.join("");
+  };
 
   const handleDragEnd = (event: DropResult) => {
     const { source, destination } = event;
@@ -52,6 +59,14 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
     setContentList(newItems);
   };
   const checkOrder = () => {
+    const isPass = checkAnswer();
+    if (!isPass) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
     setIsDone(true);
   };
 
@@ -97,7 +112,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
         <Droppable droppableId="drop-id">
           {(provided, snapshot) => (
             <div
-              className="flex items-center justify-between mt-20 drag"
+              className="flex justify-between mt-20 drag"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -191,11 +206,20 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                           )}
                         </Draggable>
                       ))}
+                      <button
+                        className={clsx(
+                          "btn mt-10",
+                          isShowError && "bg-red-600 text-white"
+                        )}
+                        onClick={checkOrder}
+                      >
+                        {isShowError ? (
+                          <span>答錯了!再試試看吧!</span>
+                        ) : (
+                          <span>我完成了！</span>
+                        )}
+                      </button>
                     </ul>
-
-                    <button className="mt-10 btn" onClick={checkOrder}>
-                      我完成了！
-                    </button>
                   </>
                 </div>
               )}
