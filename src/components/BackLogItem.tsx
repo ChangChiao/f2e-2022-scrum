@@ -23,7 +23,7 @@ function BackLogItem({ id, text, index, point, type }: Partial<BackLogItem>) {
     <Droppable droppableId={`drop-${type}-${index}`}>
       {(provided, snapshot) => {
         return (
-          <li
+          <div
             {...provided.droppableProps}
             className="mb-4 h-20 w-[300px] rounded-xl border-2 border-dashed border-gray-light"
             ref={provided.innerRef}
@@ -57,7 +57,7 @@ function BackLogItem({ id, text, index, point, type }: Partial<BackLogItem>) {
             ) : (
               <></>
             )}
-          </li>
+          </div>
         );
       }}
     </Droppable>

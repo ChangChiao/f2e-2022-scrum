@@ -47,13 +47,14 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     {},
     {},
     {},
-    {},
   ]);
 
   const checkPoint = () => {
     const result = finishedList.reduce((a, b) => a + b.point!, 0);
     return result <= 20;
   };
+
+  const isEmptyObj = (obj: Object) => Object.keys(obj).length === 0;
 
   const getType = (id: string, key?: string) => {
     if (key === "type") {
@@ -88,15 +89,21 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     if (isSameZone) {
       if (destination.droppableId.startsWith("drop-source")) {
         console.log("1111");
-
-        const [remove] = sourceItems.splice(sourceIndex, 1);
-        sourceItems.splice(destinationIndex, 0, remove);
+        [sourceItems[sourceIndex], sourceItems[destinationIndex]] = [
+          sourceItems[destinationIndex],
+          sourceItems[sourceIndex],
+        ];
+        // const [remove] = sourceItems.splice(sourceIndex, 1);
+        // sourceItems.splice(destinationIndex, 0, remove);
         setContentList(sourceItems);
       } else {
         console.log("2222");
-
-        const [remove] = destinationItems.splice(sourceIndex, 1);
-        destinationItems.splice(destinationIndex, 0, remove);
+        [destinationItems[sourceIndex], destinationItems[destinationIndex]] = [
+          destinationItems[destinationIndex],
+          destinationItems[sourceIndex],
+        ];
+        // const [remove] = destinationItems.splice(sourceIndex, 1);
+        // destinationItems.splice(destinationIndex, 0, remove);
         setFinishedList(destinationItems);
       }
 
@@ -104,7 +111,12 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     }
     if (destination.droppableId.startsWith("drop-source")) {
       const [remove] = destinationItems.splice(sourceIndex, 1, {});
-      sourceItems.splice(destinationIndex, 0, remove as BackLogItem);
+      if (isEmptyObj(sourceItems[destinationIndex])) {
+        sourceItems[destinationIndex] = remove;
+      } else {
+        sourceItems.splice(destinationIndex, 0, remove);
+      }
+      //   sourceItems.splice(destinationIndex, 0, remove as BackLogItem);
       setContentList(sourceItems);
       setFinishedList(destinationItems);
       console.log("3333");
@@ -112,7 +124,11 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
       const [remove] = sourceItems.splice(sourceIndex, 1, {});
       console.log("remove", remove);
 
-      destinationItems.splice(destinationIndex, 0, remove);
+      if (isEmptyObj(destinationItems[destinationIndex])) {
+        destinationItems[destinationIndex] = remove;
+      } else {
+        destinationItems.splice(destinationIndex, 0, remove);
+      }
       setContentList(sourceItems);
       setFinishedList(destinationItems);
       console.log("4444");
@@ -136,6 +152,10 @@ function BackLog({ subStep, nextSubStep }: BackLogProps) {
     }
     setIsDone(true);
   };
+
+  useEffect(() => {
+    console.log("contentList", contentList);
+  }, [contentList]);
 
   useEffect(() => {
     console.log("setFinishedList", finishedList);
