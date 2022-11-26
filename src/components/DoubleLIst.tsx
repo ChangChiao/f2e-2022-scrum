@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
-import { nanoid } from "nanoid";
 import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
 import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
+import { ReactComponent as Over } from "@/assets/over.svg";
 import mouse from "@/assets/mouse.png";
 
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
@@ -37,13 +37,6 @@ function DoubleList({ subStep, nextSubStep }: TodoProps) {
   ]);
 
   const [finishedList, setFinishedList] = useState<DoubleListItem[]>([]);
-
-  const checkAnswer = () => {
-    const question = finishedList.map((item) => item.id);
-    console.log("question", question);
-
-    return question.join("") === answer.join("");
-  };
 
   const handleDragEnd = (event: DropResult) => {
     const { source, destination } = event;
@@ -81,9 +74,15 @@ function DoubleList({ subStep, nextSubStep }: TodoProps) {
       setFinishedList(targetItems);
     }
   };
-  const checkOrder = () => {
-    const isPass = checkAnswer();
-    if (!isPass) {
+
+  const totalPoint = useMemo(() => {
+    return finishedList.reduce((a, b) => {
+      return (a += b.point);
+    }, 0);
+  }, [finishedList]);
+
+  const checkPoint = () => {
+    if (totalPoint > 20) {
       setError(true);
       setTimeout(() => {
         setError(false);
@@ -157,7 +156,7 @@ function DoubleList({ subStep, nextSubStep }: TodoProps) {
           </div>
           <div
             className={clsx([
-              "relative h-[550px] w-[420px] rounded-3xl border-[20px] border-[#DE6E46] bg-white p-4",
+              "relative h-[550px] w-[420px] rounded-3xl border-[20px] border-red-default bg-white p-4",
               "after:absolute after:-top-16 after:left-0 after:right-0 after:mx-auto after:h-[80px] after:w-[140px] after:bg-[url('/src/assets/list_clip.png')] after:bg-contain after:bg-no-repeat after:content-['']",
               "animate__animated animate__fadeInLeft animate__delay-1s",
             ])}
@@ -186,14 +185,33 @@ function DoubleList({ subStep, nextSubStep }: TodoProps) {
                       ></div>
                     ))}
                     {finishedList.map((item, i) => (
-                      <TodoListItem key={`finish-${i}`} {...item} index={i} />
+                      <TodoListItem
+                        key={`finish-${i}`}
+                        {...item}
+                        isRed={true}
+                        index={i}
+                      />
                     ))}
                   </div>
                 )}
               </Droppable>
-              <img src={mouse} />
+              <div className="relative">
+                <img className="w-4/5 mx-auto" src={mouse} />
+                {totalPoint > 20 && (
+                  <Over className="absolute w-32 right-6 -bottom-2" />
+                )}
+                <span className="absolute text-3xl top-6 left-10 text-red-default">
+                  共<strong className="px-4">{totalPoint}</strong>點
+                </span>
+              </div>
             </div>
-            <button className={clsx("btn relative -bottom-2 left-10 m-auto")}>
+            <button
+              onClick={checkPoint}
+              className={clsx(
+                "btn relative -bottom-6 left-10 m-auto",
+                (finishedList.length < 2 || totalPoint > 20) && "bg-gray-light"
+              )}
+            >
               我完成了！
             </button>
           </div>

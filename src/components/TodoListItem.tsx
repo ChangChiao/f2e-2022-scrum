@@ -1,12 +1,14 @@
 import React from "react";
 import DraggablePortalHandler from "@/components/DraggablePortalHandler";
 import { Draggable, DraggingStyle } from "react-beautiful-dnd";
+import clsx from "clsx";
 
 type TodoListItem = {
   id: string;
   text: string;
   index: number;
   point?: number;
+  isRed?: boolean;
 };
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
@@ -18,13 +20,13 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
   };
 };
 
-function TodoListItem({ id, text, index, point }: TodoListItem) {
+function TodoListItem({ id, text, index, point, isRed }: TodoListItem) {
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provided, snapshot) => (
         <DraggablePortalHandler snapshot={snapshot}>
           <li
-            className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-blue-dark"
+            className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-gray-light"
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -34,11 +36,19 @@ function TodoListItem({ id, text, index, point }: TodoListItem) {
             )}
           >
             {point && (
-              <span className="w-10 h-10 text-lg leading-10 text-center text-white rounded-full bg-blue-dark">
+              <span
+                className={clsx(
+                  "h-10 w-10 rounded-full bg-blue-dark text-center text-lg leading-10 text-white",
+                  isRed && "bg-red-default"
+                )}
+              >
                 {point}
               </span>
             )}
-            <p className="w-[90%] pl-[3%]"> {text}</p>
+            <p className={clsx("w-[90%] pl-[3%]", isRed && "text-red-default")}>
+              {" "}
+              {text}
+            </p>
           </li>
         </DraggablePortalHandler>
       )}
