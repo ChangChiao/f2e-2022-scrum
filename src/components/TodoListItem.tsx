@@ -6,6 +6,7 @@ type TodoListItem = {
   id: string;
   text: string;
   index: number;
+  point?: number;
 };
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
@@ -17,7 +18,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
   };
 };
 
-function TodoListItem({ id, text, index }: TodoListItem) {
+function TodoListItem({ id, text, index, point }: TodoListItem) {
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provided, snapshot) => (
@@ -32,7 +33,12 @@ function TodoListItem({ id, text, index }: TodoListItem) {
               provided.draggableProps.style
             )}
           >
-            {text}
+            {point && (
+              <span className="w-10 h-10 text-lg leading-10 text-center text-white rounded-full bg-blue-dark">
+                {point}
+              </span>
+            )}
+            <p className="w-[90%] pl-[3%]"> {text}</p>
           </li>
         </DraggablePortalHandler>
       )}

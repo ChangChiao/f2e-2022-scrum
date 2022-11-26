@@ -47,7 +47,9 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
   const [finishedList, setFinishedList] = useState<TodoListItem[]>([]);
 
   const checkAnswer = () => {
-    const question = contentList.map((item) => item.id);
+    const question = finishedList.map((item) => item.id);
+    console.log("question", question);
+
     return question.join("") === answer.join("");
   };
 
@@ -88,6 +90,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
     }
   };
   const checkOrder = () => {
+    if (finishedList.length !== 4) return;
     const isPass = checkAnswer();
     if (!isPass) {
       setError(true);
@@ -210,6 +213,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                     <button
                       className={clsx(
                         "btn mt-10",
+                        finishedList.length !== 4 && "bg-gray-dark",
                         isShowError && "bg-red-600 text-white"
                       )}
                       onClick={checkOrder}

@@ -6,7 +6,7 @@ import cat_gray from "@/assets/cat-gray.png";
 import cat_flower from "@/assets/cat-flower.png";
 import clsx from "clsx";
 function Fibonacci() {
-  const { activeStep } = useStep();
+  const { activeStep, nextStep } = useStep();
   return (
     <div className="flex items-center justify-between wrapper">
       <div className="relative w-1/6 pl-10">
@@ -38,7 +38,7 @@ function Fibonacci() {
           </p>
           <div className="text-white brand bg-blue-dark">賓士 :</div>
         </div>
-        <button className="btn mt-10 w-[400px]">
+        <button className="btn mt-10 w-[400px]" onClick={nextStep}>
           就算黑貓問號，我也要挑戰！
         </button>
       </div>

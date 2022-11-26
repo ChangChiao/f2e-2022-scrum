@@ -7,6 +7,7 @@ import Intro from "./components/Intro";
 import IntroPO from "./components/IntroPO";
 import Sprint from "./components/Sprint";
 import Fibonacci from "./components/Fibonacci";
+import SpriteList from "./components/SpriteList";
 import clsx from "clsx";
 function App() {
   const { activeStep } = useStep();
@@ -16,12 +17,13 @@ function App() {
   }, [activeStep]);
   return (
     <>
-      <div className="flex w-[500vw] duration-500" ref={container}>
+      <div className="flex w-[600vw] duration-500" ref={container}>
         <Cover />
         <Intro />
         <IntroPO />
         <Sprint />
         <Fibonacci />
+        <SpriteList />
       </div>
       <img
         className={clsx(
