@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useStep } from "@/components/provider/StepProvider";
-import { ReactComponent as Logo } from "@/assets/logo.svg";
 import catAll from "@/assets/cat-all.png";
 import Cover from "./components/Cover";
 import Intro from "./components/Intro";
@@ -10,7 +9,10 @@ import Fibonacci from "./components/Fibonacci";
 import SpriteList from "./components/SpriteList";
 import SprintIntro from "./components/SprintIntro";
 import SprintProcess from "./components/SprintProcess";
+import SpriteRetro from "./components/SpriteRetro";
+import End from "./components/End";
 import clsx from "clsx";
+import Header from "./components/Header";
 function App() {
   const { activeStep } = useStep();
   const container = useRef<HTMLDivElement | null>(null);
@@ -19,7 +21,8 @@ function App() {
   }, [activeStep]);
   return (
     <>
-      <div className="flex w-[900vw] duration-500" ref={container}>
+      {activeStep !== 0 && <Header />}
+      <div className="flex w-[1100vw] duration-500" ref={container}>
         <Cover />
         <Intro />
         <IntroPO />
@@ -28,6 +31,8 @@ function App() {
         <SpriteList />
         <SprintIntro />
         <SprintProcess />
+        <SpriteRetro />
+        <End />
       </div>
       <img
         className={clsx(
@@ -37,7 +42,6 @@ function App() {
         src={catAll}
         alt=""
       />
-      <Logo className="fixed top-5 left-5 w-[200px]" />
     </>
   );
 }

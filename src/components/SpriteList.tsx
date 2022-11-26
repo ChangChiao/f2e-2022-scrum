@@ -6,9 +6,8 @@ import cat_po_2 from "@/assets/cat-po-2.png";
 import cat_benz from "@/assets/cat-benz.png";
 import cat_gray from "@/assets/cat-gray.png";
 import cat_flower from "@/assets/cat-flower.png";
-import TodoList from "./TodoList";
 import DoubleList from "./DoubleLIst";
-function Sprint() {
+function SprintList() {
   const [subStep, setSubStep] = useState(0);
   const { activeStep, nextStep } = useStep();
 
@@ -66,4 +65,4 @@ function Sprint() {
   );
 }
 
-export default Sprint;
+export default SprintList;
