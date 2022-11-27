@@ -21,8 +21,8 @@ function App() {
   }, [activeStep]);
   return (
     <>
-      {activeStep !== 0 && <Header />}
-      <div className="flex w-[1300vw] duration-500" ref={container}>
+      {activeStep !== 0 && activeStep !== 9 && <Header />}
+      <div className="flex w-[1000vw] duration-500" ref={container}>
         <Cover />
         <Intro />
         <IntroPO />
