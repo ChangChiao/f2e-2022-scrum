@@ -10,7 +10,7 @@ const StepContext = createContext<StepContextInterface>(
 );
 
 const StepContextProvider = ({ children }: { children: ReactNode }) => {
-  const [activeStep, setActiveStep] = useState(5);
+  const [activeStep, setActiveStep] = useState(6);
 
   const nextStep = () => {
     setActiveStep((prevState) => prevState + 1);

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import { useStep } from "@/components/provider/StepProvider";
-
+import catGray from "../assets/cat-gray.png";
+import plant_2 from "@/assets/plant-2.png";
+import Meeting1 from "@/assets/Meeting1.png";
+import Meeting2 from "@/assets/Meeting2.png";
+import Meeting3 from "@/assets/Meeting3.png";
 const contentList = [
   { title: "每日站立會議", subTitle: "Daily Scrum" },
   {
@@ -16,13 +20,25 @@ function SprintIntro() {
   const { nextStep, activeStep } = useStep();
   return (
     <div className="relative flex items-center justify-center wrapper">
+      <div className="flex px-10">
+        <img
+          className={clsx(
+            "mx-auto w-3/4",
+            activeStep === 6 &&
+              "animate__animated animate__bounceIn animate_delay-500"
+          )}
+          src={catGray}
+          alt=""
+        />
+      </div>
       <div
         className={clsx(
-          "flex  flex-col items-center",
-          "animate__animated animate__fadeInDown animate__delay-2s"
+          "flex  w-2/3 flex-col items-center",
+          activeStep === 6 &&
+            "animate__animated animate__fadeInDown animate__delay-2s"
         )}
       >
-        <div className="mb-10 dialog">
+        <div className="mb-4 dialog">
           <p>
             等等等等等，你應該還不知道什麼是 Sprint 吧？ 讓我先為你介紹一下～
             仔細聽好唷，等等會考考你！
@@ -43,55 +59,72 @@ function SprintIntro() {
             ）。
           </p>
         </div>
-        <ul className="flex">
+        <ul className="flex pt-6">
           {contentList.map((item, i) => (
             <li
               key={`tab-${i}`}
-              className="flex items-center justify-between px-4 cursor-pointer"
+              className={clsx(
+                "mr-3 flex cursor-pointer items-center justify-between rounded-2xl  px-4 py-2 shadow-lg",
+                active === i ? "bg-white" : "bg-gray-200 text-gray-500"
+              )}
               onClick={() => setActive(i)}
             >
-              <h4>{item.title}</h4>
-              <span>{item.subTitle}</span>
+              <h4 className="text-xl">{item.title}</h4>
+              <span className="pl-2">{item.subTitle}</span>
             </li>
           ))}
         </ul>
-        <div className="h-[60vh] overflow-y-scroll pt-10">
+        <div className="dialog mt-10 h-[300px] w-full overflow-y-scroll p-4 px-10 text-lg leading-8">
           {active === 0 && (
-            <div>
-              <p> 每天都要進行的會議，以 15 分鐘為限制 ： </p>
-              <ul>
-                <li> 昨天為團隊的短衝目標（Sprint Goal）做了那些進度</li>
-                <li>今天我會如何準備來幫助團隊達到短衝目標</li>
-                <li>過程中有遇到什麼問題、難題 </li>
-              </ul>
-              <p>透過團隊分享，追蹤大家的工作狀況。</p>
+            <div className="flex items-center justify-between h-full">
+              <div>
+                <p> 每天都要進行的會議，以 15 分鐘為限制 ： </p>
+                <ul>
+                  <li>·昨天為團隊的短衝目標（Sprint Goal）做了那些進度</li>
+                  <li>·今天我會如何準備來幫助團隊達到短衝目標</li>
+                  <li>·過程中有遇到什麼問題、難題 </li>
+                </ul>
+                <p>透過團隊分享，追蹤大家的工作狀況。</p>
+              </div>
+              <img src={Meeting1} className="w-1/3" alt="" />
             </div>
           )}
           {active === 1 && (
-            <div>
-              <p>
-                向利害關係人（Stakeholder）展示工作結果，蒐集使用回饋，分享市場反應，並一起討論下一步工作方向。
-              </p>
-              <p>
-                在短衝檢視會議過程中，會取得使用者或利害關係人對於本次短衝增量的回饋數據或意見，討論哪些想法值得納入至產品待辦清單去實踐。
-              </p>
+            <div className="flex items-center justify-between h-full">
+              <p>用來檢視該次短衝增量的成果 ， 以蒐集相關的回饋數據或意見 。</p>
+              <img src={Meeting2} alt="" />
             </div>
           )}
           {active === 2 && (
-            <div>
-              <p>
-                團隊在自省會議裡，會共同回顧該短衝歷程發生的事情、好的地方及可以改進的地方。
-              </p>
-              <p>
-                檢討如何維持已有的成功經驗、優化工作流程，讓團隊運作愈來愈進步。
-              </p>
-              <p> 推薦工具：</p>
+            <div className="flex items-center justify-between h-full">
+              <div>
+                <p>
+                  團隊在自省會議裡，會共同回顧該短衝歷程發生的事情、好的地方及可以改進的地方。
+                </p>
+                <ul>
+                  <li>·好的地方</li>
+                  <li>·可以改進的地方 </li>
+                  <li>·如何維持我們已有的成功經驗</li>
+                </ul>
+              </div>
+              <img src={Meeting3} alt="" />
             </div>
           )}
         </div>
         <button className="mt-6 btn" onClick={nextStep}>
-          準備好了!
+          練習去囉!
         </button>
+      </div>
+      <div className="">
+        <img
+          className={clsx(
+            "mx-auto w-2/3",
+            activeStep === 6 &&
+              "animate__animated animate__bounceIn animate__delay-1s"
+          )}
+          src={plant_2}
+          alt=""
+        />
       </div>
     </div>
   );
