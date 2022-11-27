@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
+import ModalPortal from "@/components/common/Modal";
 import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
 import { ReactComponent as Line } from "@/assets/line.svg";
-import catBox from "@/assets/cat-box.png";
 import cat_gray from "@/assets/cat-gray.png";
+import fish from "@/assets/fish.png";
 
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
@@ -123,7 +124,6 @@ function SprintProcess() {
       return;
     }
     setIsDone(true);
-    nextStep();
   };
 
   useEffect(() => {
@@ -283,6 +283,24 @@ function SprintProcess() {
           </div>
         </DragDropContext>
       </div>
+      {isDone && activeStep === 7 && (
+        <ModalPortal>
+          <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-white/50">
+            <div className="text-center ">
+              <img
+                className="animate__bounceIn animate__animated max-w-[500px]"
+                src={fish}
+              />
+              <div className="p-4 text-xl bg-white shadow-lg rounded-3xl">
+                恭喜你完成了! 獲得魚魚一隻!
+              </div>
+              <button className="btn mt-10 w-[400px]" onClick={nextStep}>
+                繼續了解Retro！
+              </button>
+            </div>
+          </div>
+        </ModalPortal>
+      )}
     </div>
   );
 }
