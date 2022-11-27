@@ -3,7 +3,7 @@ import clsx from "clsx";
 import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
 import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
-import { ReactComponent as Over } from "@/assets/over.svg";
+import catBox from "@/assets/cat-box.png";
 import mouse from "@/assets/mouse.png";
 
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
@@ -126,8 +126,9 @@ function SprintProcess() {
     <div className="relative wrapper">
       <div
         className={clsx(
-          "dialog mb-10",
-          "animate__animated animate__fadeInDown animate__delay-1s"
+          "dialog mx-auto mb-10 w-2/3",
+          activeStep === 7 &&
+            "animate__animated animate__fadeInDown animate__delay-1s"
         )}
       >
         <h2 className="title">換你試看看吧!</h2>
@@ -143,11 +144,41 @@ function SprintProcess() {
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex justify-between mt-20 drag">
-          <div>
+          <div
+            className={clsx(
+              "map relative mt-10 w-2/3",
+              activeStep === 7 &&
+                "animate__animated animate__fadeInRight animate__delay-1s"
+            )}
+          >
+            <ul className="text-2x absolute -top-[80px] w-[240px] px-0 text-center text-xl">
+              <li className="pb-4">產品待辦清單</li>
+              <li>
+                <div className="arrow-bar"></div>
+              </li>
+              <li className="pb-4">短衝規劃</li>
+              <li>
+                <div className="arrow-bar"></div>
+              </li>
+              <li>短衝待辦清單</li>
+            </ul>
+            {/* left */}
+            <div className="line-v relative left-[40%] h-[200px]"></div>
+            <div className="absolute top-20 left-[40%] -translate-x-[140px] text-4xl font-bold">
+              Sprint
+            </div>
+            <div className="line-v arrow absolute top-0  left-[40%] h-[150px] -translate-x-[200px] after:-bottom-[20px] after:-left-[6px] after:-rotate-90"></div>
+            <div className="line-h absolute left-[40%] top-[0] w-[200px] -translate-x-[200px]"></div>
+            <div className="line-h arrow relative after:-top-[18px] after:-right-[20px] after:rotate-180"></div>
+            {/* right */}
+            <div className="line-v absolute left-[40%] -top-12 h-12 -translate-x-10"></div>
+            <div className="line-h absolute left-[40%] -top-12 w-[400px] -translate-x-[30px]"></div>
+            <div className="line-v absolute left-[40%] -top-12 h-[160px] translate-x-[360px]"></div>
+            <div className="line-h arrow absolute left-[40%] top-[100px] w-[200px] translate-x-[160px] after:-left-4 after:-top-[18px]"></div>
             <Droppable droppableId="drop-destination-A1">
               {(provided, snapshot) => (
                 <div
-                  className="relative mx-auto h-[100px] w-[300px] border-4"
+                  className="line-box absolute left-[40%] -top-[20px] mx-auto h-[88px] w-[300px] translate-x-[40px]"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -164,7 +195,7 @@ function SprintProcess() {
             <Droppable droppableId="drop-destination-A2">
               {(provided, snapshot) => (
                 <div
-                  className="relative my-20 mx-auto h-[100px] w-[300px] border-4"
+                  className="line-box absolute top-[80px] left-[40%] my-20 mx-auto h-[88px] w-[300px] translate-x-5"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -181,7 +212,7 @@ function SprintProcess() {
             <Droppable droppableId="drop-destination-A3">
               {(provided, snapshot) => (
                 <div
-                  className="relative  h-[100px] w-[300px] border-4"
+                  className="line-box absolute top-[160px] left-[50%] h-[88px]  w-[300px] translate-x-[230px]"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -195,6 +226,7 @@ function SprintProcess() {
                 </div>
               )}
             </Droppable>
+            <img className="w-1/2 mx-auto mt-20" src={catBox} alt="" />
           </div>
           <div
             className={clsx([
@@ -219,7 +251,7 @@ function SprintProcess() {
                     ref={provided.innerRef}
                   >
                     {/* {provided.placeholder} */}
-                    {Array.from({ length: 4 }).map((item, i) => (
+                    {Array.from({ length: 3 }).map((item, i) => (
                       <div
                         className="absolute -z-10 mb-4 h-20 w-[300px] rounded-xl border-2 border-dashed border-gray-light"
                         style={{ top: `${i * 96}px` }}
@@ -234,7 +266,10 @@ function SprintProcess() {
               </Droppable>
             </div>
             <button
-              className={clsx("btn", isShowError && "bg-red-600 text-white")}
+              className={clsx(
+                "btn translate-x-10",
+                isShowError && "bg-red-600 text-white "
+              )}
               onClick={checkAnswer}
             >
               {isShowError ? (

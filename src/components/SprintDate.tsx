@@ -21,7 +21,7 @@ function SprintDate({ subStep, activeStep, nextStep }: SprintDateProps) {
     >
       <div className="dialog">
         <p>
-          這兩位是賓士和灰灰，是我們開發團為的成員唷～ 目前我們團隊{" "}
+          這兩位是賓士和灰灰，是我們開發團為的成員唷～ 目前我們團隊
           <span className="text-green-dark">一次 Sprint 週期是兩週的時間</span>
           ，依照我的觀察，目前團隊可以負擔的點數{" "}
           <span className="text-green-dark">(Sprint Point) 大約是 20 點</span>
