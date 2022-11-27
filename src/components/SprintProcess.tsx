@@ -76,11 +76,14 @@ function SprintProcess() {
       return;
     }
     const targetId = getType(destination.droppableId);
+    const sourceId = getType(source.droppableId);
     if (destination.droppableId === "drop-source") {
       //放回去
-      const remove = targetItems[targetId];
-      targetItems[targetId] = undefined;
+
+      const remove = targetItems[sourceId];
       if (!remove) return;
+
+      targetItems[sourceId] = undefined;
       sourceItems.splice(destination.index, 0, remove);
       setContentList(sourceItems);
       setFinishedList(targetItems);
