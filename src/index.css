@@ -59,7 +59,10 @@
   }
 
   .option {
-    @apply flex items-center p-6 mb-4 dialog;
+    @apply flex items-center p-2 mb-4;
+  }
+  .circle {
+    @apply mr-2 h-[25px] w-[25px] rounded-full border-2 border-blue-dark;
   }
 
   .list-item-block {
