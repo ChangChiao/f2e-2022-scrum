@@ -167,7 +167,12 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
                       ></div>
                     ))}
                     {finishedList.map((item, i) => (
-                      <TodoListItem key={`finish-${i}`} {...item} index={i} />
+                      <TodoListItem
+                        key={`finish-${i}`}
+                        {...item}
+                        index={i}
+                        isCheck={isDone}
+                      />
                     ))}
                   </div>
                 )}

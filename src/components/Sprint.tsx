@@ -43,7 +43,7 @@ function Sprint() {
       </div>
       <div
         className={clsx(
-          "w-1/6",
+          "relative w-1/6",
           activeStep === 3 &&
             "animate__animated animate__fadeInLeft animate__delay-1s"
         )}

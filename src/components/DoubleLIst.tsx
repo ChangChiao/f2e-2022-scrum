@@ -8,14 +8,12 @@ import mouse from "@/assets/mouse.png";
 
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
-type TodoProps = {
-  subStep: number;
-  nextSubStep: () => void;
+type DoubleListProps = {
+  setIsDone: (val: boolean) => void;
 };
 
-function DoubleList({ subStep, nextSubStep }: TodoProps) {
+function DoubleList({ setIsDone }: DoubleListProps) {
   const { nextStep } = useStep();
-  const [isDone, setIsDone] = useState(false);
   const [isShowError, setError] = useState(false);
   const answer = ["A1", "A4", "A3", "A2"];
 
@@ -91,10 +89,6 @@ function DoubleList({ subStep, nextSubStep }: TodoProps) {
     }
     setIsDone(true);
   };
-
-  useEffect(() => {
-    console.log("subStep", subStep);
-  }, [subStep]);
   return (
     <div className={clsx("relative")}>
       <div

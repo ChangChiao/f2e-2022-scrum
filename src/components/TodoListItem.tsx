@@ -1,6 +1,7 @@
 import React from "react";
 import DraggablePortalHandler from "@/components/DraggablePortalHandler";
 import { Draggable, DraggingStyle } from "react-beautiful-dnd";
+import { ReactComponent as Check } from "@/assets/check.svg";
 import clsx from "clsx";
 
 type TodoListItem = {
@@ -8,6 +9,7 @@ type TodoListItem = {
   text: string;
   index: number;
   point?: number;
+  isCheck?: boolean;
   isRed?: boolean;
 };
 
@@ -20,13 +22,20 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => {
   };
 };
 
-function TodoListItem({ id, text, index, point, isRed }: TodoListItem) {
+function TodoListItem({
+  id,
+  text,
+  index,
+  point,
+  isCheck,
+  isRed,
+}: TodoListItem) {
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provided, snapshot) => (
         <DraggablePortalHandler snapshot={snapshot}>
           <li
-            className="flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-gray-light"
+            className="relative flex items-center h-20 px-4 mb-4 bg-white border rounded-lg cursor-pointer border-gray-light"
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -45,9 +54,14 @@ function TodoListItem({ id, text, index, point, isRed }: TodoListItem) {
                 {point}
               </span>
             )}
-            <p className={clsx("w-[90%] pl-[3%]", isRed && "text-red-default")}>
-              {" "}
+            <p
+              className={clsx(
+                "relative w-[90%] pl-[3%]",
+                isRed && "text-red-default"
+              )}
+            >
               {text}
+              {isCheck && <Check className="absolute -bottom-4 -right-12" />}
             </p>
           </li>
         </DraggablePortalHandler>

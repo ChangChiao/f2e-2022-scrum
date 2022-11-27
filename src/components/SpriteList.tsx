@@ -1,19 +1,16 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { useStep } from "@/components/provider/StepProvider";
-
+import ModalPortal from "@/components/common/Modal";
+import mousee from "@/assets/mousee.png";
 import cat_po_2 from "@/assets/cat-po-2.png";
 import cat_benz from "@/assets/cat-benz.png";
 import cat_gray from "@/assets/cat-gray.png";
 import cat_flower from "@/assets/cat-flower.png";
 import DoubleList from "./DoubleLIst";
 function SprintList() {
-  const [subStep, setSubStep] = useState(0);
   const { activeStep, nextStep } = useStep();
-
-  const nextSubStep = () => {
-    setSubStep((prev) => (prev += 1));
-  };
+  const [isDone, setIsDone] = useState(false);
 
   return (
     <div className="relative flex items-center justify-between wrapper">
@@ -38,9 +35,7 @@ function SprintList() {
         />
       </div>
       <div className="relative flex flex-col items-center w-2/3 px-10">
-        {activeStep === 5 && (
-          <DoubleList subStep={subStep} nextSubStep={nextSubStep} />
-        )}
+        {activeStep === 5 && <DoubleList setIsDone={setIsDone} />}
       </div>
       <div className={clsx("relative w-1/6")}>
         <img
@@ -61,6 +56,24 @@ function SprintList() {
           src={cat_gray}
         />
       </div>
+      {isDone && activeStep === 5 && (
+        <ModalPortal>
+          <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-white/50">
+            <div className="text-center ">
+              <img
+                className="animate__bounceIn animate__animated max-w-[500px]"
+                src={mousee}
+              />
+              <div className="p-4 text-xl bg-white shadow-lg rounded-3xl">
+                恭喜你完成了! 獲得逗貓鼠鼠一隻!
+              </div>
+              <button className="btn mt-10 w-[400px]" onClick={nextStep}>
+                繼續了解Sprint 流程！
+              </button>
+            </div>
+          </div>
+        </ModalPortal>
+      )}
     </div>
   );
 }

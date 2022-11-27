@@ -6,9 +6,9 @@ function ProgressBar() {
     return Math.round((activeStep / 11) * 100);
   }, [activeStep]);
   return (
-    <div className="w-2/3 pl-10">
+    <div className="w-2/3 pl-10 ">
       <h4 className="pb-4">新手進度</h4>
-      <div className="h-5 overflow-hidden bg-white rounded-xl">
+      <div className="h-5 overflow-hidden bg-white shadow-md rounded-xl">
         <div
           style={{ width: percentage + "%" }}
           className="h-5 rounded-xl bg-orange-dark"

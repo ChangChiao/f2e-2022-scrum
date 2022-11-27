@@ -27,7 +27,7 @@ function SprintIntro() {
             等等等等等，你應該還不知道什麼是 Sprint 吧？ 讓我先為你介紹一下～
             仔細聽好唷，等等會考考你！
           </p>
-          <div className="brand bg-orange-dark">PO:</div>
+          <div className="text-white brand bg-gray-dark">灰灰:</div>
         </div>
         <div className="dialog">
           <p>
@@ -55,7 +55,7 @@ function SprintIntro() {
             </li>
           ))}
         </ul>
-        <div className="pt-10">
+        <div className="h-[60vh] overflow-y-scroll pt-10">
           {active === 0 && (
             <div>
               <p> 每天都要進行的會議，以 15 分鐘為限制 ： </p>
