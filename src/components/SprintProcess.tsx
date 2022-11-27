@@ -3,8 +3,9 @@ import clsx from "clsx";
 import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
 import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
+import { ReactComponent as Line } from "@/assets/line.svg";
 import catBox from "@/assets/cat-box.png";
-import mouse from "@/assets/mouse.png";
+import cat_gray from "@/assets/cat-gray.png";
 
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
@@ -43,6 +44,10 @@ function SprintProcess() {
   const getId = (id: string) => {
     return id.substring(id.lastIndexOf("-") + 1, id.length);
   };
+
+  const checkCount = useMemo(() => {
+    return Object.values(finishedList).every((item) => item !== undefined);
+  }, [finishedList]);
 
   const handleDragEnd = (event: DropResult) => {
     const { source, destination } = event;
@@ -126,130 +131,132 @@ function SprintProcess() {
   }, [finishedList]);
 
   return (
-    <div className="relative wrapper">
-      <div
-        className={clsx(
-          "dialog mx-auto mb-10 w-2/3",
-          activeStep === 7 &&
-            "animate__animated animate__fadeInDown animate__delay-1s"
-        )}
-      >
-        <h2 className="title">換你試看看吧!</h2>
-        <p>
-          把 <span className="text-green-dark">「 產品待辦清單 」</span>
-          的項目拖進{" "}
-          <span className="text-green-dark">「 開發Ａ組的短衝待辦清單 」</span>
-          裡吧 ！ 提示 ： 置入兩項以上的 Story ， 點數總和不能超過團隊負擔上限
-          20 點唷 ！
-        </p>
-        <div className="text-white brand bg-blue-dark">賓士 :</div>
+    <div className="wrapper relative flex items-center justify-between pt-[100px] 2xl:pt-0">
+      <div className="w-1/6">
+        <img className="ml-10" src={cat_gray} />
+        <button
+          className={clsx(
+            "btn mt-10 ml-10",
+            isShowError && "bg-red-600 text-white",
+            !checkCount && "bg-gray-dark"
+          )}
+          onClick={checkAnswer}
+        >
+          {isShowError ? (
+            <span>答錯了!再試試看吧!</span>
+          ) : (
+            <span>我完成了！</span>
+          )}
+        </button>
       </div>
+      <div className="w-3/4">
+        <div
+          className={clsx(
+            "dialog relative z-10 mx-auto",
+            activeStep === 7 &&
+              "animate__animated animate__fadeInDown animate__delay-1s"
+          )}
+        >
+          <h2 className="title">換你試看看吧!</h2>
+          <p>
+            在這經典的 Surum 流程圖中 ， 這些流程分別代表哪一個會議呢 ？ 提示 ：
+            把右側的三個流程拖移至正確的位置上吧 ！
+          </p>
+          <div className="text-white brand bg-gray-dark">灰灰 :</div>
+        </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="drag relative w-[1200px] lg:scale-75 xl:scale-90">
+            <div
+              className={clsx(
+                "map relative -top-10 ",
+                activeStep === 7 &&
+                  "animate__animated animate__fadeInRight animate__delay-1s"
+              )}
+            >
+              <Line />
+              <ul className="text-2x absolute top-8 left-6 w-[360px] px-0 text-center text-xl">
+                <li className="list-item-block mb-7">
+                  產品待辦清單 <span>Product Backlog</span>
+                </li>
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="flex justify-between mt-20 drag">
-          <div
-            className={clsx(
-              "map relative mt-10 w-2/3",
-              activeStep === 7 &&
-                "animate__animated animate__fadeInRight animate__delay-1s"
-            )}
-          >
-            <ul className="text-2x absolute -top-[80px] w-[240px] px-0 text-center text-xl">
-              <li className="pb-4">產品待辦清單</li>
-              <li>
-                <div className="arrow-bar"></div>
-              </li>
-              <li className="pb-4">短衝規劃</li>
-              <li>
-                <div className="arrow-bar"></div>
-              </li>
-              <li>短衝待辦清單</li>
-            </ul>
-            {/* left */}
-            <div className="line-v relative left-[40%] h-[200px]"></div>
-            <div className="absolute top-20 left-[40%] -translate-x-[140px] text-4xl font-bold">
-              Sprint
+                <li className="list-item-block mb-7">
+                  短衝規劃<span>Sprint Planning</span>
+                </li>
+
+                <li className="list-item-block">
+                  短衝待辦清單<span>Sprint Backlog</span>
+                </li>
+              </ul>
+              <div className="absolute bottom-[130px] left-[18%] flex h-[100px] w-[100px] items-center justify-center rounded-lg bg-white text-center text-xl">
+                短衝 <br /> Sprint
+              </div>
+              <Droppable droppableId="drop-destination-A1">
+                {(provided, snapshot) => (
+                  <div
+                    className="line-box absolute left-[40%] top-[340px] mx-auto h-[84px] w-[300px] translate-x-[40px]"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {finishedList.A1 && (
+                      <TodoListItem
+                        key={`daily`}
+                        isRed={true}
+                        {...finishedList.A1}
+                        index={0}
+                      />
+                    )}
+                  </div>
+                )}
+              </Droppable>
+              <Droppable droppableId="drop-destination-A2">
+                {(provided, snapshot) => (
+                  <div
+                    className="line-box absolute top-[450px] left-[34%] my-20 mx-auto h-[84px] w-[300px] translate-x-5"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {finishedList.A2 && (
+                      <TodoListItem
+                        isRed={true}
+                        key={`daily`}
+                        {...finishedList.A2}
+                        index={0}
+                      />
+                    )}
+                  </div>
+                )}
+              </Droppable>
+              <Droppable droppableId="drop-destination-A3">
+                {(provided, snapshot) => (
+                  <div
+                    className="line-box absolute top-[530px] left-[43%] h-[84px]  w-[300px] translate-x-[230px]"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {finishedList.A3 && (
+                      <TodoListItem
+                        key={`daily`}
+                        isRed={true}
+                        {...finishedList.A3}
+                        index={0}
+                      />
+                    )}
+                  </div>
+                )}
+              </Droppable>
             </div>
-            <div className="line-v arrow absolute top-0  left-[40%] h-[150px] -translate-x-[200px] after:-bottom-[20px] after:-left-[6px] after:-rotate-90"></div>
-            <div className="line-h absolute left-[40%] top-[0] w-[200px] -translate-x-[200px]"></div>
-            <div className="line-h arrow relative after:-top-[18px] after:-right-[20px] after:rotate-180"></div>
-            {/* right */}
-            <div className="line-v absolute left-[40%] -top-12 h-12 -translate-x-10"></div>
-            <div className="line-h absolute left-[40%] -top-12 w-[400px] -translate-x-[30px]"></div>
-            <div className="line-v absolute left-[40%] -top-12 h-[160px] translate-x-[360px]"></div>
-            <div className="line-h arrow absolute left-[40%] top-[100px] w-[200px] translate-x-[160px] after:-left-4 after:-top-[18px]"></div>
-            <Droppable droppableId="drop-destination-A1">
-              {(provided, snapshot) => (
-                <div
-                  className="line-box absolute left-[40%] -top-[20px] mx-auto h-[88px] w-[300px] translate-x-[40px]"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {finishedList.A1 && (
-                    <TodoListItem
-                      key={`daily`}
-                      {...finishedList.A1}
-                      index={0}
-                    />
-                  )}
-                </div>
+
+            <div
+              className={clsx(
+                "absolute top-4 right-10 flex items-center justify-between",
+                activeStep === 7 &&
+                  "animate__animated animate__fadeInLeft animate__delay-1s"
               )}
-            </Droppable>
-            <Droppable droppableId="drop-destination-A2">
-              {(provided, snapshot) => (
-                <div
-                  className="line-box absolute top-[80px] left-[40%] my-20 mx-auto h-[88px] w-[300px] translate-x-5"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {finishedList.A2 && (
-                    <TodoListItem
-                      key={`daily`}
-                      {...finishedList.A2}
-                      index={0}
-                    />
-                  )}
-                </div>
-              )}
-            </Droppable>
-            <Droppable droppableId="drop-destination-A3">
-              {(provided, snapshot) => (
-                <div
-                  className="line-box absolute top-[160px] left-[50%] h-[88px]  w-[300px] translate-x-[230px]"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {finishedList.A3 && (
-                    <TodoListItem
-                      key={`daily`}
-                      {...finishedList.A3}
-                      index={0}
-                    />
-                  )}
-                </div>
-              )}
-            </Droppable>
-            <img className="w-1/2 mx-auto mt-20" src={catBox} alt="" />
-          </div>
-          <div
-            className={clsx([
-              "relative h-[550px] w-[420px] rounded-3xl border-[20px] border-blue-light bg-white p-4",
-              "after:absolute after:-top-16 after:left-0 after:right-0 after:mx-auto after:h-[80px] after:w-[140px] after:bg-[url('/src/assets/list_clip.png')] after:bg-contain after:bg-no-repeat after:content-['']",
-              "animate__animated animate__fadeInLeft animate__delay-1s",
-            ])}
-          >
-            <div className="py-4 text-center">
-              <h3 className="title">
-                產品待辦清單
-                <PawPrint className="inline-block mx-1" />
-              </h3>
-              <span>Product Backlog</span>
-            </div>
-            <div className="flex items-center justify-between">
+            >
               <Droppable droppableId="drop-source">
                 {(provided, snapshot) => (
                   <div
-                    className="relative mx-auto h-[400px] w-[300px]"
+                    className=" mx-auto h-[400px] w-[300px]"
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -262,28 +269,20 @@ function SprintProcess() {
                       ></div>
                     ))}
                     {contentList.map((item, i) => (
-                      <TodoListItem key={`todo-${i}`} {...item} index={i} />
+                      <TodoListItem
+                        isRed={true}
+                        key={`todo-${i}`}
+                        {...item}
+                        index={i}
+                      />
                     ))}
                   </div>
                 )}
               </Droppable>
             </div>
-            <button
-              className={clsx(
-                "btn translate-x-10",
-                isShowError && "bg-red-600 text-white "
-              )}
-              onClick={checkAnswer}
-            >
-              {isShowError ? (
-                <span>答錯了!再試試看吧!</span>
-              ) : (
-                <span>我完成了！</span>
-              )}
-            </button>
           </div>
-        </div>
-      </DragDropContext>
+        </DragDropContext>
+      </div>
     </div>
   );
 }

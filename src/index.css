@@ -55,11 +55,15 @@
     @apply w-3 bg-blue-light;
   }
   .line-box {
-    @apply border-4 border-dashed rounded-lg border-gray-dark bg-gray-400/20;
+    @apply bg-white border-2 border-dashed rounded-lg border-gray-dark;
   }
 
   .option {
     @apply flex items-center p-6 mb-4 dialog;
+  }
+
+  .list-item-block {
+    @apply relative flex h-20 cursor-pointer items-center rounded-lg border border-gray-light bg-white px-4 text-lg leading-[80px];
   }
 
   .arrow {
