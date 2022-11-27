@@ -14,9 +14,9 @@ function SprintDate({ subStep, activeStep, nextStep }: SprintDateProps) {
     <div
       className={clsx(
         "flex flex-col items-center",
-        activeStep === 3 && "absolute opacity-0",
+        activeStep === 3 && "pointer-events-none absolute opacity-0",
         subStep === 1 &&
-          "animate__animated animate__fadeInDown animate__delay-1s relative opacity-100"
+          "animate__animated animate__fadeInDown animate__delay-1s pointer-events-auto relative opacity-100"
       )}
     >
       <div className="dialog">

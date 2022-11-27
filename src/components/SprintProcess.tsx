@@ -109,10 +109,13 @@ function SprintProcess() {
     if (!isCorrect()) {
       setError(true);
       console.log("fail");
-
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
       return;
     }
     setIsDone(true);
+    nextStep();
   };
 
   useEffect(() => {
@@ -230,8 +233,15 @@ function SprintProcess() {
                 )}
               </Droppable>
             </div>
-            <button className="btn" onClick={checkAnswer}>
-              下一步
+            <button
+              className={clsx("btn", isShowError && "bg-red-600 text-white")}
+              onClick={checkAnswer}
+            >
+              {isShowError ? (
+                <span>答錯了!再試試看吧!</span>
+              ) : (
+                <span>我完成了！</span>
+              )}
             </button>
           </div>
         </div>

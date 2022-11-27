@@ -33,7 +33,7 @@ function SprintIntro() {
       </div>
       <div
         className={clsx(
-          "flex  w-2/3 flex-col items-center",
+          "flex  w-2/3 flex-col items-center pt-[10%] 2xl:pt-0",
           activeStep === 6 &&
             "animate__animated animate__fadeInDown animate__delay-2s"
         )}
@@ -86,7 +86,7 @@ function SprintIntro() {
                 </ul>
                 <p>透過團隊分享，追蹤大家的工作狀況。</p>
               </div>
-              <img src={Meeting1} className="w-1/3" alt="" />
+              <img src={Meeting1} className="w-1/4" alt="" />
             </div>
           )}
           {active === 1 && (

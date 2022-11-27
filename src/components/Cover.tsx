@@ -21,7 +21,7 @@ function Cover() {
         />
         <img className="max-w-[200px]" src={plant_2} alt="" />
       </div>
-      <div className="animate__animated animate__bounce relative z-10 w-1/2 max-w-[1000px] pt-[10%] text-center">
+      <div className="animate__animated animate__bounce relative z-10 w-1/2 max-w-[1000px] pt-[8%] text-center">
         <Title className="w-full" />
         <button onClick={nextStep} className="mt-5 btn">
           進入村莊

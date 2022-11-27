@@ -5,15 +5,17 @@
 @layer base {
   body {
     overflow-anchor: none !important;
-    @apply fixed
+    @apply /*
+    */
+    fixed
     top-0
     left-0
     h-screen
     w-screen
-    cursor-[url(/src/assets/paw.svg),auto]
-    overflow-x-hidden
-    bg-[url('/src/assets/bg.jpg')] 
-    bg-cover 
+    cursor-[url(/src/assets/paw.svg),auto] 
+    overflow-x-hidden 
+    bg-[length()]
+    bg-[url('/src/assets/bg.jpg')] bg-cover bg-fixed
     bg-no-repeat 
     font-sans
     text-blue-dark;
@@ -26,7 +28,7 @@
   }
 
   .wrapper {
-    @apply h-[calc(100vh-100px)] w-screen;
+    @apply h-[calc(100vh-100px)] w-screen overflow-y-scroll;
   }
   .btn {
     @apply text-2xl text-center h-14 w-72 rounded-3xl bg-green-light hover:bg-orange-dark;

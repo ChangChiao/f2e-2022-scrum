@@ -58,7 +58,7 @@ function SpritePlan({ subStep, activeStep, setSubStep }: SpritePlanProps) {
           </p>
         </div>
       </div>
-      <div className="mt-20 dialog">
+      <div className="mt-6 dialog">
         <p>
           嗨嗨 你是新來的前端吧！我是這次的{" "}
           <span className="text-green-dark">Scrum Master</span>
