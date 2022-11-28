@@ -3,7 +3,6 @@ import clsx from "clsx";
 import TodoListItem from "@/components/TodoListItem";
 import { useStep } from "@/components/provider/StepProvider";
 import ModalPortal from "@/components/common/Modal";
-import { ReactComponent as PawPrint } from "@/assets/paw_print.svg";
 import { ReactComponent as Line } from "@/assets/line.svg";
 import cat_gray from "@/assets/cat-gray.png";
 import fish from "@/assets/fish.png";
@@ -106,6 +105,7 @@ function SprintProcess() {
 
   const isCorrect = () => {
     for (let key in finishedList) {
+      if (key === "source") continue;
       if (key !== finishedList[key]?.id) {
         return false;
       }
@@ -131,14 +131,14 @@ function SprintProcess() {
   }, [finishedList]);
 
   return (
-    <div className="wrapper relative flex items-center justify-between pt-[100px] 2xl:pt-0">
+    <div className="wrapper relative flex items-center justify-between  pt-[100px] 2xl:pt-0">
       <div className="w-1/6">
         <img className="ml-10" src={cat_gray} />
         <button
           className={clsx(
             "btn mt-10 ml-10",
-            isShowError && "bg-red-600 text-white",
-            !checkCount && "bg-gray-dark"
+            !checkCount && "bg-gray-dark",
+            isShowError && "bg-red-600 text-white"
           )}
           onClick={checkAnswer}
         >
@@ -248,7 +248,7 @@ function SprintProcess() {
 
             <div
               className={clsx(
-                "absolute top-4 right-10 flex items-center justify-between",
+                "absolute top-4 right-40 flex items-center justify-between",
                 activeStep === 7 &&
                   "animate__animated animate__fadeInLeft animate__delay-1s"
               )}

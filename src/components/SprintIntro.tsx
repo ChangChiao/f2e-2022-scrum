@@ -64,7 +64,7 @@ function SprintIntro() {
             <li
               key={`tab-${i}`}
               className={clsx(
-                "mr-3 flex cursor-pointer items-center justify-between rounded-2xl  px-4 py-2 shadow-lg",
+                "mr-3 min-w-[200px] cursor-pointer rounded-2xl px-4  py-2 text-center shadow-lg",
                 active === i ? "bg-white" : "bg-gray-200 text-gray-500"
               )}
               onClick={() => setActive(i)}
