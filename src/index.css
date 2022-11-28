@@ -27,13 +27,13 @@
   }
 
   .wrapper {
-    @apply h-[calc(100vh-100px)] w-screen overflow-y-scroll;
+    @apply mt-10 h-[calc(100vh-100px)] w-screen overflow-y-scroll 2xl:mt-0;
   }
   .btn {
-    @apply text-2xl text-center h-14 w-72 rounded-3xl bg-green-light hover:bg-orange-dark;
+    @apply h-14 w-72 rounded-3xl bg-green-light text-center text-2xl hover:bg-orange-dark;
   }
   .dialog {
-    @apply relative p-10 text-xl bg-white shadow-md rounded-3xl;
+    @apply relative rounded-3xl bg-white p-10 text-xl shadow-md;
   }
   .tags {
     @apply absolute left-0 top-4;
@@ -45,7 +45,7 @@
     @apply text-2xl font-bold;
   }
   .list-item {
-    @apply pl-4 list-disc;
+    @apply list-disc pl-4;
   }
   .line-h {
     @apply h-3 bg-blue-light;
@@ -54,11 +54,11 @@
     @apply w-3 bg-blue-light;
   }
   .line-box {
-    @apply bg-white border-2 border-dashed rounded-lg border-gray-dark;
+    @apply rounded-lg border-2 border-dashed border-gray-dark bg-white;
   }
 
   .option {
-    @apply flex items-center p-2 mb-4;
+    @apply mb-4 flex items-center p-2;
   }
   .circle {
     @apply mr-2 h-[25px] w-[25px] rounded-full border-2 border-blue-dark;
