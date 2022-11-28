@@ -108,7 +108,7 @@ function TodoList({ subStep, nextSubStep }: TodoProps) {
   return (
     <div
       className={clsx(
-        "absolute opacity-0",
+        "absolute h-[calc(100vh-100px)] opacity-0",
         subStep === 1 && "relative opacity-100"
       )}
     >

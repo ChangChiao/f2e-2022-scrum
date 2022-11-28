@@ -158,7 +158,7 @@ function SpriteRetro() {
           <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-white/50">
             <div className="text-center ">
               <img
-                className="animate__bounceIn animate__animated max-w-[500px]"
+                className="animate__bounceIn animate__animated min-h-[500px] max-w-[500px]"
                 src={ball}
               />
               <div className="p-4 text-xl bg-white shadow-lg rounded-3xl">

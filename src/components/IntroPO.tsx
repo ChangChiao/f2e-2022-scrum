@@ -27,7 +27,7 @@ function IntroPO() {
         >
           <img src={catPo} alt="" />
         </div>
-        <div className="relative pl-10">
+        <div className="relative pt-20 pl-10 2xl:pt-10">
           <PO subStep={subStep} nextSubStep={nextSubStep} />
           <TodoList subStep={subStep} nextSubStep={nextSubStep} />
           {/* <BackLog subStep={subStep} nextSubStep={nextSubStep} /> */}
