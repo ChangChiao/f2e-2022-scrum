@@ -46,7 +46,7 @@ function End() {
           alt=""
         />
       </div>
-      <div className="animate__animated animate__bounce relative z-10 w-1/2 max-w-[1000px] pt-[8%] text-center 2xl:pt-[15%]">
+      <div className="animate__animated animate__bounce relative z-10 w-1/2 max-w-[1000px] pt-[8%] text-center 2xl:pt-[10%]">
         <Title className="w-full" />
       </div>
       <div
@@ -66,7 +66,7 @@ function End() {
       </div>
       <div
         className={clsx(
-          "absolute bottom-0 flex w-[85%] items-end  justify-between",
+          "pointer-events-none absolute bottom-0 flex w-[85%]  items-end justify-between",
           activeStep === 9 &&
             "animate__animated animate__jackInTheBox animate__delay-1s"
         )}

@@ -16,8 +16,8 @@ function IntroPO() {
   };
 
   return (
-    <div className="relative flex items-center justify-center wrapper">
-      <div className="flex items-center justify-center w-3/4">
+    <div className="relative flex items-center justify-center pt-10 overflow-x-hidden wrapper">
+      <div className="flex w-3/4 -translate-y-[60px] items-center justify-center 2xl:-translate-y-10">
         <div
           className={clsx(
             "w-1/4 min-w-[200px]",
@@ -27,7 +27,7 @@ function IntroPO() {
         >
           <img src={catPo} alt="" />
         </div>
-        <div className="relative pl-10">
+        <div className="relative pt-20 pl-10 2xl:pt-10">
           <PO subStep={subStep} nextSubStep={nextSubStep} />
           <TodoList subStep={subStep} nextSubStep={nextSubStep} />
           {/* <BackLog subStep={subStep} nextSubStep={nextSubStep} /> */}
