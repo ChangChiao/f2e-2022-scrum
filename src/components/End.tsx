@@ -58,7 +58,7 @@ function End() {
       >
         <h3 className="text-xl">恭喜你通過</h3>
         <div className="p-4 text-xl bg-white shadow-lg rounded-3xl">
-          《 敏捷任務 - 最初の試煉 》
+          《 scrum新手村任務 - 初心者的考驗 》
         </div>
         <button className="w-full mt-5 btn" onClick={reload}>
           再學一次
