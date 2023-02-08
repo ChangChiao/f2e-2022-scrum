@@ -10,6 +10,10 @@ Scrum 新手喵喵村來了!
 
 ![image](./public/catCover.PNG)
 
+## 獲獎紀錄
+
+![image](./public/2022TheF2E-W3-Joe%20Chang.png)
+
 ## Designer
 
 👏 [葦葦](https://2022.thef2e.com/users/12061549261446707204)
